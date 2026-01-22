@@ -1,0 +1,8 @@
+# Generated output files will be saved here
+
+# After processing, you'll find:
+# - glass_3d_model.html
+# - manufacturing_instructions.md
+# - cnc_program.gcode
+# - technical_drawing.svg
+# - validation_report.json

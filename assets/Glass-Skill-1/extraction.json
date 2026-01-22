@@ -1,0 +1,144 @@
+{
+  "document_info": {
+    "source_image": "Glass-Skill-1.jpeg",
+    "analysis_type": "glass_panel",
+    "version": "FINAL",
+    "timestamp": "2026-01-15",
+    "unit": "mm"
+  },
+  "panel_type": "4_panel_assembly",
+  "overall_dimensions": {
+    "total_width_mm": 148.4,
+    "max_height_mm": 91.4,
+    "thickness_mm": 4.0,
+    "calculation": "36.0 + 37.4 + 37.4 + 37.4 = 148.2 (+ 0.2 taper at top = 148.4)"
+  },
+  "panels": [
+    {
+      "id": "Panel 1",
+      "type": "door",
+      "position": {
+        "x_offset": 0,
+        "y_offset": 0
+      },
+      "dimensions": {
+        "width_bottom_mm": 36.0,
+        "width_top_mm": 36.2,
+        "height_left_mm": 91.3,
+        "height_right_mm": 91.4
+      },
+      "taper": {
+        "is_tapered": true,
+        "taper_marker": "84<",
+        "straight_section_height_mm": 84.0,
+        "tapered_section_height_mm": 7.3,
+        "width_increase_mm": 0.2,
+        "note": "84< indicates taper start at 84mm from bottom. Width increases from 36.0mm to 36.2mm over the top 7.3mm"
+      },
+      "edge": {
+        "type": "K_edge",
+        "all_sides": true
+      }
+    },
+    {
+      "id": "Panel 2",
+      "type": "panel",
+      "position": {
+        "x_offset": 36.0,
+        "y_offset": 0
+      },
+      "dimensions": {
+        "width_mm": 37.4,
+        "height_left_mm": 91.4,
+        "height_right_mm": 91.0
+      },
+      "taper": {
+        "is_tapered": false
+      },
+      "edge": {
+        "type": "K_edge",
+        "all_sides": true
+      }
+    },
+    {
+      "id": "Panel 3",
+      "type": "panel",
+      "position": {
+        "x_offset": 73.4,
+        "y_offset": 0
+      },
+      "dimensions": {
+        "width_mm": 37.4,
+        "height_left_mm": 91.0,
+        "height_right_mm": 91.1
+      },
+      "taper": {
+        "is_tapered": false
+      },
+      "edge": {
+        "type": "K_edge",
+        "all_sides": true
+      }
+    },
+    {
+      "id": "Panel 4",
+      "type": "panel",
+      "position": {
+        "x_offset": 110.8,
+        "y_offset": 0
+      },
+      "dimensions": {
+        "width_mm": 37.4,
+        "height_left_mm": 91.1,
+        "height_right_mm": 91.3
+      },
+      "taper": {
+        "is_tapered": false
+      },
+      "edge": {
+        "type": "K_edge",
+        "all_sides": true
+      }
+    }
+  ],
+  "height_at_boundaries": {
+    "description": "Heights measured at vertical panel boundaries (left to right)",
+    "left_edge_panel_1": 91.3,
+    "between_panel_1_2": 91.4,
+    "between_panel_2_3": 91.0,
+    "between_panel_3_4": 91.1,
+    "right_edge_panel_4": 91.3
+  },
+  "special_features": {
+    "taper": {
+      "location": "Panel 1 (Door)",
+      "marker": "84<",
+      "meaning": "Taper begins at 84mm height from bottom",
+      "straight_portion": "0-84mm (vertical/straight, 36.0mm wide)",
+      "tapered_portion": "84-91.3mm (7.3mm section, width increases to 36.2mm)"
+    },
+    "k_edge": {
+      "present": true,
+      "location": "All panels, all edges"
+    }
+  },
+  "manufacturing": {
+    "glass_type": "Clear Tempered",
+    "edge_processing": "K-Edge all sides",
+    "heat_treatment": "Full temper required",
+    "tolerances": {
+      "linear_mm": "±1.5",
+      "diagonal_mm": "±3.0",
+      "thickness_mm": "±0.5"
+    }
+  },
+  "validation": {
+    "status": "VERIFIED",
+    "width_check": {
+      "sum": "36.0 + 37.4 + 37.4 + 37.4 = 148.2",
+      "with_taper": "148.2 + 0.2 = 148.4",
+      "result": "PASS"
+    },
+    "confidence": 95
+  }
+}

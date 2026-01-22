@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 750">
+<defs>
+    <linearGradient id="boundaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#dcfce7;stop-opacity:1"/>
+        <stop offset="100%" style="stop-color:#bbf7d0;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#10b981"/>
+        <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/>
+    </marker>
+</defs>
+
+<style>
+.boundary{fill:url(#boundaryGrad);stroke:#059669;stroke-width:3;filter:url(#shadow)}
+.gate{stroke:#f59e0b;stroke-width:5;stroke-dasharray:10,5;stroke-linecap:round}
+.wall14{stroke:#3b82f6;stroke-width:5;stroke-linecap:round}
+.range-edge{stroke:#fbbf24;stroke-width:4;stroke-dasharray:8,3}
+.label{font-family:'Inter',Arial,sans-serif;fill:#1e293b}
+.measure{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;fill:#1e40af}
+.measure-range{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;fill:#d97706}
+.gate-txt{font-family:'Inter',Arial,sans-serif;font-weight:700;fill:#c2410c}
+.compass{font-family:'Inter',Arial,sans-serif;font-weight:700;font-size:13px;fill:#64748b}
+.vertex{fill:#ec4899;stroke:#fff;stroke-width:1.5}
+.vertex-label{font-family:'JetBrains Mono',monospace;font-size:9px;fill:#be185d;font-weight:600}
+.title{font-family:'Inter',Arial,sans-serif;font-weight:700;font-size:16px;fill:#0f172a}
+.subtitle{font-family:'Inter',Arial,sans-serif;font-size:10px;fill:#64748b}
+.stat-label{font-family:'Inter',Arial,sans-serif;font-size:10px;fill:#64748b}
+.stat-value{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;fill:#0f172a}
+.method-badge{font-family:'Inter',Arial,sans-serif;font-size:8px;fill:#059669;font-weight:600}
+.uncertainty{font-family:'JetBrains Mono',monospace;font-size:9px;fill:#3b82f6}
+</style>
+
+<!-- Background -->
+<rect width="520" height="750" fill="#f8fafc"/>
+
+<!-- Header -->
+<rect x="0" y="0" width="520" height="50" fill="url(#headerGrad)"/>
+<text x="20" y="30" class="title" fill="#fff">Plot Boundary Analysis</text>
+<text x="20" y="44" class="subtitle" fill="rgba(255,255,255,0.8)">Calculated with SciPy + Shapely + NumPy</text>
+
+<!-- Grid pattern (subtle) -->
+<pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/>
+</pattern>
+<rect x="20" y="60" width="480" height="560" fill="url(#grid)"/>
+
+<!-- Main boundary polygon -->
+<polygon class="boundary" points="99,80 413,80 413,305 413,365 269,365 269,638 149,638 149,596 70,596 70,330 99,330"/>
+
+<!-- Edge labels with measurements -->
+<!-- East (Top) - 31.4 FT -->
+<text x="256" y="72" class="measure" text-anchor="middle">31.4 FT</text>
+<line x1="99" y1="75" x2="413" y2="75" stroke="#3b82f6" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead)"/>
+
+<!-- South Upper - 22.5 FT -->
+<text x="430" y="192" class="measure">22.5 FT</text>
+
+<!-- GATE - 6.0 FT -->
+<line x1="413" y1="305" x2="413" y2="365" class="gate"/>
+<rect x="418" y="320" width="80" height="40" rx="4" fill="rgba(251,191,36,0.15)" stroke="#f59e0b" stroke-width="1"/>
+<text x="428" y="337" class="gate-txt" font-size="11">GATE 6.0 FT</text>
+<text x="428" y="352" class="gate-txt" font-size="9" fill="#ea580c">GALI/RASTA</text>
+
+<!-- 14.4 Wall -->
+<line x1="413" y1="365" x2="269" y2="365" class="wall14"/>
+<text x="341" y="382" class="measure" text-anchor="middle">14.4 FT</text>
+
+<!-- South Lower - 27.3 FT -->
+<text x="284" y="501" class="measure">27.3 FT</text>
+
+<!-- West Bottom - 12.0 FT -->
+<text x="209" y="656" class="measure">12.0 FT</text>
+
+<!-- Step - 4.2 FT -->
+<text x="155" y="617" class="measure" font-size="10">4.2 FT</text>
+
+<!-- West Mid - 7.9 FT (RANGE: 7-10 FT) -->
+<line x1="149" y1="596" x2="70" y2="596" class="range-edge"/>
+<rect x="75" y="575" width="95" height="28" rx="4" fill="rgba(251,191,36,0.2)" stroke="#f59e0b" stroke-width="1"/>
+<text x="82" y="589" class="measure-range">7.9 FT</text>
+<text x="82" y="598" class="measure-range" font-size="8">(Range: 7-10 FT)</text>
+
+<!-- North Lower - 27.4 FT (was 26.6, corrected) -->
+<text x="35" y="463" class="measure">27.4 FT</text>
+
+<!-- Indent - 2.9 FT -->
+<text x="84" y="318" class="measure" font-size="10">2.9 FT</text>
+
+<!-- North Upper - 25.0 FT -->
+<text x="82" y="205" class="measure">25.0 FT</text>
+
+<!-- Vertex markers with IDs -->
+<circle cx="99" cy="80" r="5" class="vertex"/><text x="80" y="75" class="vertex-label">P1</text>
+<circle cx="413" cy="80" r="5" class="vertex"/><text x="418" y="75" class="vertex-label">P2</text>
+<circle cx="413" cy="305" r="5" class="vertex"/><text x="418" y="300" class="vertex-label">P3</text>
+<circle cx="413" cy="365" r="5" class="vertex"/><text x="418" y="378" class="vertex-label">P4</text>
+<circle cx="269" cy="365" r="5" class="vertex"/><text x="252" y="360" class="vertex-label">P5</text>
+<circle cx="269" cy="638" r="5" class="vertex"/><text x="274" y="652" class="vertex-label">P6</text>
+<circle cx="149" cy="638" r="5" class="vertex"/><text x="134" y="652" class="vertex-label">P7</text>
+<circle cx="149" cy="596" r="5" class="vertex"/><text x="154" y="591" class="vertex-label">P8</text>
+<circle cx="70" cy="596" r="5" class="vertex"/><text x="55" y="610" class="vertex-label">P9</text>
+<circle cx="70" cy="330" r="5" class="vertex"/><text x="50" y="325" class="vertex-label">P10</text>
+<circle cx="99" cy="330" r="5" class="vertex"/><text x="104" y="343" class="vertex-label">P11</text>
+
+<!-- Compass directions -->
+<text x="10" y="350" class="compass" transform="rotate(-90, 10, 350)">NORTH</text>
+<text x="505" y="350" class="compass" transform="rotate(90, 505, 350)">SOUTH</text>
+<text x="256" y="95" class="compass" text-anchor="middle" fill="#475569">East</text>
+<text x="209" y="670" class="compass" text-anchor="middle" fill="#475569">West</text>
+
+<!-- Statistics Panel -->
+<rect x="20" y="630" width="220" height="110" rx="8" fill="#fff" stroke="#e2e8f0" stroke-width="1" filter="url(#shadow)"/>
+<text x="30" y="650" class="stat-label">CALCULATED METRICS</text>
+<line x1="30" y1="656" x2="230" y2="656" stroke="#e2e8f0" stroke-width="1"/>
+
+<text x="30" y="675" class="stat-label">Area (Shoelace + Shapely)</text>
+<text x="200" y="675" class="stat-value" text-anchor="end">1,422.93 sq FT</text>
+
+<text x="30" y="695" class="stat-label">Perimeter (NumPy sum)</text>
+<text x="200" y="695" class="stat-value" text-anchor="end">181.0 FT</text>
+
+<text x="30" y="715" class="stat-label">Vertices</text>
+<text x="200" y="715" class="stat-value" text-anchor="end">11 points</text>
+
+<text x="30" y="732" class="stat-label">Closure Error</text>
+<text x="200" y="732" class="stat-value" text-anchor="end" fill="#059669">0.0 FT</text>
+
+<!-- Uncertainty Panel -->
+<rect x="250" y="630" width="250" height="110" rx="8" fill="rgba(59,130,246,0.05)" stroke="#3b82f6" stroke-width="1" filter="url(#shadow)"/>
+<text x="260" y="650" class="stat-label" fill="#3b82f6">UNCERTAINTY ANALYSIS (Monte Carlo)</text>
+<line x1="260" y1="656" x2="490" y2="656" stroke="#93c5fd" stroke-width="1"/>
+
+<text x="260" y="675" class="stat-label">Perimeter with uncertainty</text>
+<text x="490" y="675" class="uncertainty" text-anchor="end">180.81 +/- 0.87 FT</text>
+
+<text x="260" y="695" class="stat-label">95% Confidence Interval</text>
+<text x="490" y="695" class="uncertainty" text-anchor="end">179.46 - 182.16 FT</text>
+
+<text x="260" y="715" class="stat-label">Uncertain edge</text>
+<text x="490" y="715" class="uncertainty" text-anchor="end">West Mid (7-10 FT)</text>
+
+<text x="260" y="732" class="stat-label">Method</text>
+<text x="490" y="732" class="method-badge" text-anchor="end">SciPy + NumPy + Shapely</text>
+
+</svg>

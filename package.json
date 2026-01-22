@@ -1,0 +1,122 @@
+{
+  "name": "oa-3d-skills",
+  "version": "8.0.0",
+  "description": "Architect-grade analysis of hand-drawn sketches (glass panels, plot boundaries) using two-phase multi-agent validation with section-by-section image extraction.",
+  "main": "run.py",
+  "type": "skills-plugin",
+  "author": "OA-3D-Skills",
+  "license": "MIT",
+  "_README": {
+    "onNewChat": "IMPORTANT: Read this file first when starting a new chat session",
+    "checkStatus": "Run 'python run.py --list' to see processed vs pending images",
+    "neverReprocess": "Never re-run skills on already processed images unless user explicitly requests with --force",
+    "references": "Always review assets/ folder for reference outputs before generating new ones"
+  },
+  "skills": [
+    {
+      "name": "glass-manufacturing",
+      "displayName": "Glass Panel Analysis",
+      "description": "Manufacturing-grade method for analyzing hand-drawn glass panel sketches using section-by-section extraction with precise dimensional specifications.",
+      "version": "4.0.0",
+      "trigger": "analyze glass panel",
+      "inputFolder": "inputs/Glass-Skills",
+      "outputFolder": "outputs/Glass-Skill-{N}",
+      "skillFile": "skills/glass-manufacturing/SKILL-glass.md",
+      "referenceFolder": "assets/Glass-Skill-1",
+      "units": "mm",
+      "outputs": [
+        "glass_3d_model.html",
+        "technical_drawing.svg",
+        "confirmed_extraction.json",
+        "manufacturing_instructions.md",
+        "cnc_program.gcode",
+        "validation_report.json"
+      ]
+    },
+    {
+      "name": "boundary-analysis",
+      "displayName": "Plot Boundary Analysis",
+      "description": "Architectural survey methodology for analyzing hand-drawn plot boundary sketches with precision calculations using SciPy, Shapely, and NumPy.",
+      "version": "4.0.0",
+      "trigger": "analyze plot boundary",
+      "inputFolder": "inputs/Boundary-Skills",
+      "outputFolder": "outputs/Boundary-Skill-{N}",
+      "skillFile": "skills/glass-manufacturing/SKILL-boundary.md",
+      "referenceFolder": "assets/Boundary-Skill-1",
+      "units": ["FT", "m"],
+      "outputs": [
+        "boundary_3d_viewer.html",
+        "boundary_technical.svg",
+        "boundary_data.json",
+        "boundary_report.md"
+      ]
+    }
+  ],
+  "autoTrigger": {
+    "enabled": true,
+    "skipProcessed": true,
+    "rules": [
+      {
+        "inputPattern": "inputs/Glass-Skills/*",
+        "skill": "glass-manufacturing"
+      },
+      {
+        "inputPattern": "inputs/Boundary-Skills/*",
+        "skill": "boundary-analysis"
+      }
+    ]
+  },
+  "tracking": {
+    "method": "output-folder-check",
+    "minFilesForProcessed": 3,
+    "commands": {
+      "listAll": "python run.py --list",
+      "listPending": "python run.py --pending",
+      "runNext": "python run.py --next",
+      "forceReprocess": "python run.py <image> --force"
+    }
+  },
+  "directories": {
+    "inputs": "inputs",
+    "outputs": "outputs",
+    "assets": "assets",
+    "skills": "skills",
+    "scripts": "scripts",
+    "references": "references",
+    "commands": "commands"
+  },
+  "references": {
+    "Glass-Skill-1": "assets/Glass-Skill-1",
+    "Boundary-Skill-1": "assets/Boundary-Skill-1"
+  },
+  "setup": {
+    "command": "python setup_skills.py",
+    "requirements": "requirements.txt",
+    "pythonVersion": ">=3.8"
+  },
+  "scripts": {
+    "setup": "python setup_skills.py",
+    "list": "python run.py --list",
+    "next": "python run.py --next",
+    "run": "python run.py"
+  },
+  "dependencies": {
+    "python": ">=3.8",
+    "shapely": ">=2.0.0",
+    "numpy": ">=1.24.0",
+    "scipy": ">=1.10.0"
+  },
+  "keywords": [
+    "glass-manufacturing",
+    "boundary-analysis",
+    "3d-visualization",
+    "sketch-analysis",
+    "architectural-survey",
+    "cnc-programming",
+    "manufacturing"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Panel - Manufacturing Specifications</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            font-family: Arial, sans-serif;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr 200px;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Left Panel */
+        .left-panel {
+            background: #ffffff;
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 3px solid #1e40af;
+            z-index: 10;
+        }
+        .left-panel h1 {
+            font-size: 18px;
+            color: #1e40af;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1e40af;
+        }
+        .left-panel h2 {
+            font-size: 14px;
+            color: #1e40af;
+            margin: 18px 0 10px;
+            padding-top: 12px;
+            border-top: 2px solid #e5e7eb;
+            font-weight: bold;
+        }
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 13px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .spec-label { color: #4b5563; }
+        .spec-value { font-weight: bold; color: #1e40af; font-family: 'Courier New', monospace; font-size: 14px; }
+        .highlight {
+            background: #fef3c7;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 12px 0;
+            border-left: 4px solid #f59e0b;
+        }
+        .highlight-title {
+            font-weight: bold;
+            color: #92400e;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        /* Center Canvas */
+        .canvas-area {
+            background: #0f172a;
+            position: relative;
+            overflow: hidden;
+        }
+        #canvas-container {
+            width: 100%;
+            height: 100%;
+        }
+        .canvas-hint {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.95);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #374151;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Right Panel */
+        .right-panel {
+            background: #ffffff;
+            padding: 20px;
+            border-left: 3px solid #1e40af;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+        .right-panel h3 {
+            font-size: 16px;
+            color: #1e40af;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1e40af;
+        }
+        .right-panel button {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin: 6px 0;
+            border: 2px solid #1e40af;
+            background: #fff;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #1e40af;
+            transition: all 0.2s;
+        }
+        .right-panel button:hover {
+            background: #1e40af;
+            color: #fff;
+        }
+
+        .legend {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+        }
+        .legend h4 {
+            font-size: 14px;
+            color: #1e40af;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0;
+            font-size: 11px;
+            color: #4b5563;
+        }
+        .legend-color {
+            width: 24px;
+            height: 14px;
+            border-radius: 3px;
+            flex-shrink: 0;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-layout">
+        <!-- LEFT PANEL - Specifications -->
+        <div class="left-panel">
+            <h1>Glass Panel Specifications</h1>
+
+            <h2>Overall Dimensions</h2>
+            <div class="spec-row">
+                <span class="spec-label">Total Width:</span>
+                <span class="spec-value">148.4 mm</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Max Height:</span>
+                <span class="spec-value">91.4 mm</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Thickness:</span>
+                <span class="spec-value">4.0 mm</span>
+            </div>
+
+            <h2>Panel Widths</h2>
+            <div class="spec-row">
+                <span class="spec-label">P1 (Door) Bottom:</span>
+                <span class="spec-value">36.0 mm</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">P1 (Door) Top:</span>
+                <span class="spec-value" style="color:#ea580c;">36.2 mm</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Panel 2:</span>
+                <span class="spec-value">37.4 mm</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Panel 3:</span>
+                <span class="spec-value">37.4 mm</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Panel 4:</span>
+                <span class="spec-value">37.4 mm</span>
+            </div>
+
+            <div class="highlight">
+                <div class="highlight-title">PANEL 1 TAPER DETAIL</div>
+                <div class="spec-row">
+                    <span class="spec-label">Taper Start:</span>
+                    <span class="spec-value" style="color:#ea580c;">84.0 mm</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Taper Section:</span>
+                    <span class="spec-value" style="color:#ea580c;">7.3 mm</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Width Change:</span>
+                    <span class="spec-value" style="color:#ea580c;">36.0 to 36.2</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Taper Amount:</span>
+                    <span class="spec-value" style="color:#ea580c;">+0.2 mm</span>
+                </div>
+            </div>
+
+            <h2>Heights at Boundaries</h2>
+            <div class="spec-row">
+                <span class="spec-label">Left Edge (P1):</span>
+                <span class="spec-value" style="color:#059669;">91.3 mm</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">P1 to P2 Joint:</span>
+                <span class="spec-value" style="color:#059669;">91.4 mm</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">P2 to P3 Joint:</span>
+                <span class="spec-value" style="color:#059669;">91.0 mm</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">P3 to P4 Joint:</span>
+                <span class="spec-value" style="color:#059669;">91.1 mm</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Right Edge (P4):</span>
+                <span class="spec-value" style="color:#059669;">91.3 mm</span>
+            </div>
+
+            <h2>Manufacturing</h2>
+            <div class="spec-row">
+                <span class="spec-label">Glass Type:</span>
+                <span class="spec-value">Clear Tempered</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Edge Finish:</span>
+                <span class="spec-value">K-Edge (All)</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Tolerances:</span>
+                <span class="spec-value">+/-1.5 mm</span>
+            </div>
+        </div>
+
+        <!-- CENTER - 3D Canvas -->
+        <div class="canvas-area">
+            <div id="canvas-container"></div>
+            <div class="canvas-hint">Drag: Rotate | Scroll: Zoom | Right-drag: Pan</div>
+        </div>
+
+        <!-- RIGHT PANEL - Controls -->
+        <div class="right-panel">
+            <h3>View Controls</h3>
+            <button onclick="setView('front')">Front View</button>
+            <button onclick="setView('top')">Top View</button>
+            <button onclick="setView('side')">Side View</button>
+            <button onclick="setView('iso')">ISO View</button>
+            <button onclick="setView('detail')">Taper Detail</button>
+            <button onclick="toggleLabels()">Toggle Labels</button>
+
+            <div class="legend">
+                <h4>Legend</h4>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #93c5fd;"></div>
+                    <span>Glass Panels 2-4</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fcd34d;"></div>
+                    <span>Panel 1 (Door)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ef4444;"></div>
+                    <span>Dimension Arrows</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f97316;"></div>
+                    <span>Taper Line (84mm)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #8b5cf6;"></div>
+                    <span>Panel Dividers</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Specifications from Glass-Skill-1.jpeg
+        const specs = {
+            totalWidth: 148.4,
+            thickness: 4.0,
+            panels: [
+                { name: "Panel 1 (Door)", widthBottom: 36.0, widthTop: 36.2, heightLeft: 91.3, heightRight: 91.4, xOffset: 0, taperStartHeight: 84.0 },
+                { name: "Panel 2", width: 37.4, heightLeft: 91.4, heightRight: 91.0, xOffset: 36.0 },
+                { name: "Panel 3", width: 37.4, heightLeft: 91.0, heightRight: 91.1, xOffset: 73.4 },
+                { name: "Panel 4", width: 37.4, heightLeft: 91.1, heightRight: 91.3, xOffset: 110.8 }
+            ]
+        };
+
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0f172a);
+
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 2000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+
+        const w = specs.totalWidth;
+        const t = specs.thickness;
+        const maxH = 91.4;
+
+        // Lighting
+        scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        dirLight.position.set(100, 100, 100);
+        scene.add(dirLight);
+        scene.add(new THREE.DirectionalLight(0xffffff, 0.4).position.set(-50, 50, -50));
+
+        const mainGroup = new THREE.Group();
+        const labelsGroup = new THREE.Group();
+
+        // Materials
+        const glassMat = new THREE.MeshPhysicalMaterial({
+            color: 0x93c5fd, metalness: 0, roughness: 0.1,
+            transmission: 0.7, transparent: true, opacity: 0.5, side: THREE.DoubleSide
+        });
+        const doorMat = new THREE.MeshPhysicalMaterial({
+            color: 0xfcd34d, metalness: 0, roughness: 0.1,
+            transmission: 0.6, transparent: true, opacity: 0.6, side: THREE.DoubleSide
+        });
+
+        // Create Panel 1 (Door) with taper
+        const p1 = specs.panels[0];
+        const p1Shape = new THREE.Shape();
+        p1Shape.moveTo(0, 0);
+        p1Shape.lineTo(p1.widthBottom, 0);
+        p1Shape.lineTo(p1.widthBottom, p1.taperStartHeight);
+        p1Shape.lineTo(p1.widthTop, p1.heightRight);
+        p1Shape.lineTo(0, p1.heightLeft);
+        p1Shape.lineTo(0, 0);
+
+        const p1Geo = new THREE.ExtrudeGeometry(p1Shape, { depth: t, bevelEnabled: false });
+        const panel1 = new THREE.Mesh(p1Geo, doorMat);
+        panel1.position.set(-w/2, -maxH/2, -t/2);
+        mainGroup.add(panel1);
+
+        // Panel 1 outline
+        const p1Edge = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(-w/2, -maxH/2, t/2+0.5),
+            new THREE.Vector3(-w/2+p1.widthBottom, -maxH/2, t/2+0.5),
+            new THREE.Vector3(-w/2+p1.widthBottom, -maxH/2+p1.taperStartHeight, t/2+0.5),
+            new THREE.Vector3(-w/2+p1.widthTop, -maxH/2+p1.heightRight, t/2+0.5),
+            new THREE.Vector3(-w/2, -maxH/2+p1.heightLeft, t/2+0.5),
+            new THREE.Vector3(-w/2, -maxH/2, t/2+0.5)
+        ]);
+        mainGroup.add(new THREE.Line(p1Edge, new THREE.LineBasicMaterial({ color: 0x1e40af, linewidth: 2 })));
+
+        // Panels 2, 3, 4
+        for (let i = 1; i < 4; i++) {
+            const p = specs.panels[i];
+            const pShape = new THREE.Shape();
+            pShape.moveTo(0, 0);
+            pShape.lineTo(p.width, 0);
+            pShape.lineTo(p.width, p.heightRight);
+            pShape.lineTo(0, p.heightLeft);
+            pShape.lineTo(0, 0);
+
+            const pGeo = new THREE.ExtrudeGeometry(pShape, { depth: t, bevelEnabled: false });
+            const panelMesh = new THREE.Mesh(pGeo, glassMat);
+            panelMesh.position.set(-w/2 + p.xOffset, -maxH/2, -t/2);
+            mainGroup.add(panelMesh);
+
+            const edgeGeo = new THREE.BufferGeometry().setFromPoints([
+                new THREE.Vector3(-w/2+p.xOffset, -maxH/2, t/2+0.5),
+                new THREE.Vector3(-w/2+p.xOffset+p.width, -maxH/2, t/2+0.5),
+                new THREE.Vector3(-w/2+p.xOffset+p.width, -maxH/2+p.heightRight, t/2+0.5),
+                new THREE.Vector3(-w/2+p.xOffset, -maxH/2+p.heightLeft, t/2+0.5),
+                new THREE.Vector3(-w/2+p.xOffset, -maxH/2, t/2+0.5)
+            ]);
+            mainGroup.add(new THREE.Line(edgeGeo, new THREE.LineBasicMaterial({ color: 0x1e40af })));
+        }
+
+        // Panel dividers (purple dashed)
+        const dividerMat = new THREE.LineDashedMaterial({ color: 0x8b5cf6, dashSize: 3, gapSize: 2 });
+        [36.0, 73.4, 110.8].forEach((x, i) => {
+            const h = specs.panels[i].heightRight || specs.panels[i].heightLeft;
+            const geo = new THREE.BufferGeometry().setFromPoints([
+                new THREE.Vector3(-w/2+x, -maxH/2, t/2+1),
+                new THREE.Vector3(-w/2+x, -maxH/2+h, t/2+1)
+            ]);
+            const line = new THREE.Line(geo, dividerMat);
+            line.computeLineDistances();
+            mainGroup.add(line);
+        });
+
+        // TAPER LINE at 84mm (orange dashed)
+        const taperY = -maxH/2 + 84;
+        const taperLineMat = new THREE.LineDashedMaterial({ color: 0xf97316, dashSize: 4, gapSize: 2, linewidth: 3 });
+        const taperLineGeo = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(-w/2, taperY, t/2+1),
+            new THREE.Vector3(-w/2+36, taperY, t/2+1)
+        ]);
+        const taperLine = new THREE.Line(taperLineGeo, taperLineMat);
+        taperLine.computeLineDistances();
+        mainGroup.add(taperLine);
+
+        // ========== LARGE LABELS WITH PROPER ARROWS ==========
+
+        // Create text label sprite (LARGER)
+        function createLabel(text, fontSize = 32, color = '#1e40af', bgColor = 'rgba(255,255,255,0.98)') {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 512;
+            canvas.height = 96;
+
+            ctx.fillStyle = bgColor;
+            ctx.beginPath();
+            ctx.roundRect(4, 4, 504, 88, 8);
+            ctx.fill();
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 4;
+            ctx.stroke();
+
+            ctx.fillStyle = color;
+            ctx.font = `bold ${fontSize}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, 256, 48);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true }));
+            sprite.scale.set(40, 7.5, 1);
+            return sprite;
+        }
+
+        // Create arrow with proper arrowhead
+        function createArrow(start, end, color = 0xef4444) {
+            const group = new THREE.Group();
+            const dir = new THREE.Vector3().subVectors(end, start).normalize();
+            const length = start.distanceTo(end);
+
+            // Arrow shaft
+            const shaftMat = new THREE.LineBasicMaterial({ color: color, linewidth: 3 });
+            const shaftGeo = new THREE.BufferGeometry().setFromPoints([start, end]);
+            group.add(new THREE.Line(shaftGeo, shaftMat));
+
+            // Arrowhead at end
+            const arrowHelper = new THREE.ArrowHelper(dir, start, length, color, 4, 3);
+            group.add(arrowHelper);
+
+            return group;
+        }
+
+        // Create dimension line with TWO arrowheads and label
+        function createDimensionLine(start, end, labelText, offset, vertical = false, color = '#ef4444') {
+            const group = new THREE.Group();
+            const hexColor = parseInt(color.replace('#', '0x'));
+
+            // Offset the dimension line
+            const p1 = start.clone();
+            const p2 = end.clone();
+            if (vertical) {
+                p1.x += offset;
+                p2.x += offset;
+            } else {
+                p1.y += offset;
+                p2.y += offset;
+            }
+
+            // Extension lines
+            const extMat = new THREE.LineBasicMaterial({ color: hexColor });
+            group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([start, p1]), extMat));
+            group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([end, p2]), extMat));
+
+            // Main dimension line
+            group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([p1, p2]), extMat));
+
+            // Arrowheads (cones at both ends)
+            const arrowLen = 3;
+            const arrowRad = 1.5;
+            const coneGeo = new THREE.ConeGeometry(arrowRad, arrowLen, 8);
+            const coneMat = new THREE.MeshBasicMaterial({ color: hexColor });
+
+            // Arrow at start
+            const cone1 = new THREE.Mesh(coneGeo, coneMat);
+            cone1.position.copy(p1);
+            if (vertical) {
+                cone1.rotation.z = Math.PI; // Point down
+            } else {
+                cone1.rotation.z = -Math.PI/2; // Point left
+            }
+            group.add(cone1);
+
+            // Arrow at end
+            const cone2 = new THREE.Mesh(coneGeo, coneMat);
+            cone2.position.copy(p2);
+            if (vertical) {
+                cone2.rotation.z = 0; // Point up
+            } else {
+                cone2.rotation.z = Math.PI/2; // Point right
+            }
+            group.add(cone2);
+
+            // Label
+            const label = createLabel(labelText, 28, color);
+            const mid = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5);
+            if (vertical) {
+                mid.x += 18;
+            } else {
+                mid.y += 8;
+            }
+            label.position.copy(mid);
+            group.add(label);
+
+            return group;
+        }
+
+        // ========== ADD ALL DIMENSION LINES ==========
+
+        // TOTAL WIDTH - 148.4mm (bottom)
+        const widthDim = createDimensionLine(
+            new THREE.Vector3(-w/2, -maxH/2, t/2+3),
+            new THREE.Vector3(w/2, -maxH/2, t/2+3),
+            '148.4 mm (Total Width)', -18, false, '#ef4444'
+        );
+        labelsGroup.add(widthDim);
+
+        // LEFT HEIGHT - 91.3mm
+        const leftHeightDim = createDimensionLine(
+            new THREE.Vector3(-w/2, -maxH/2, t/2+3),
+            new THREE.Vector3(-w/2, -maxH/2+91.3, t/2+3),
+            '91.3 mm', -22, true, '#059669'
+        );
+        labelsGroup.add(leftHeightDim);
+
+        // TAPER HEIGHT - 84mm from bottom
+        const taper84Dim = createDimensionLine(
+            new THREE.Vector3(-w/2, -maxH/2, t/2+3),
+            new THREE.Vector3(-w/2, taperY, t/2+3),
+            '84.0 mm (Taper Start)', -40, true, '#ea580c'
+        );
+        labelsGroup.add(taper84Dim);
+
+        // TAPER SECTION - 7.3mm
+        const taper73Dim = createDimensionLine(
+            new THREE.Vector3(-w/2, taperY, t/2+3),
+            new THREE.Vector3(-w/2, -maxH/2+91.3, t/2+3),
+            '7.3 mm (Taper)', -55, true, '#ea580c'
+        );
+        labelsGroup.add(taper73Dim);
+
+        // Panel 1 BOTTOM width - 36.0mm
+        const p1BottomDim = createDimensionLine(
+            new THREE.Vector3(-w/2, -maxH/2, t/2+3),
+            new THREE.Vector3(-w/2+36, -maxH/2, t/2+3),
+            '36.0 mm (P1 Bottom)', -35, false, '#1e40af'
+        );
+        labelsGroup.add(p1BottomDim);
+
+        // Panel 1 TOP width - 36.2mm (important!)
+        const p1TopDim = createDimensionLine(
+            new THREE.Vector3(-w/2, -maxH/2+91.3, t/2+3),
+            new THREE.Vector3(-w/2+36.2, -maxH/2+91.4, t/2+3),
+            '36.2 mm (P1 Top)', 12, false, '#ea580c'
+        );
+        labelsGroup.add(p1TopDim);
+
+        // Panel 2 width - 37.4mm
+        const p2Dim = createDimensionLine(
+            new THREE.Vector3(-w/2+36, -maxH/2, t/2+3),
+            new THREE.Vector3(-w/2+73.4, -maxH/2, t/2+3),
+            '37.4 mm (P2)', -35, false, '#1e40af'
+        );
+        labelsGroup.add(p2Dim);
+
+        // Panel 3 width - 37.4mm
+        const p3Dim = createDimensionLine(
+            new THREE.Vector3(-w/2+73.4, -maxH/2, t/2+3),
+            new THREE.Vector3(-w/2+110.8, -maxH/2, t/2+3),
+            '37.4 mm (P3)', -35, false, '#1e40af'
+        );
+        labelsGroup.add(p3Dim);
+
+        // Panel 4 width - 37.4mm
+        const p4Dim = createDimensionLine(
+            new THREE.Vector3(-w/2+110.8, -maxH/2, t/2+3),
+            new THREE.Vector3(w/2, -maxH/2, t/2+3),
+            '37.4 mm (P4)', -35, false, '#1e40af'
+        );
+        labelsGroup.add(p4Dim);
+
+        // RIGHT HEIGHT - 91.3mm
+        const rightHeightDim = createDimensionLine(
+            new THREE.Vector3(w/2, -maxH/2, t/2+3),
+            new THREE.Vector3(w/2, -maxH/2+91.3, t/2+3),
+            '91.3 mm', 22, true, '#059669'
+        );
+        labelsGroup.add(rightHeightDim);
+
+        // THICKNESS - 4.0mm
+        const thickDim = createDimensionLine(
+            new THREE.Vector3(w/2+5, -maxH/2+10, -t/2),
+            new THREE.Vector3(w/2+5, -maxH/2+10, t/2),
+            'T = 4.0 mm', 0, false, '#7c3aed'
+        );
+        labelsGroup.add(thickDim);
+
+        // ========== PANEL NAME LABELS ==========
+        const panelLabels = [
+            { text: 'P1 - DOOR', x: -w/2+18, color: '#92400e', bg: 'rgba(254,243,199,0.98)' },
+            { text: 'P2', x: -w/2+54.7, color: '#1e40af', bg: 'rgba(219,234,254,0.98)' },
+            { text: 'P3', x: -w/2+92.1, color: '#1e40af', bg: 'rgba(219,234,254,0.98)' },
+            { text: 'P4', x: -w/2+129.5, color: '#1e40af', bg: 'rgba(219,234,254,0.98)' }
+        ];
+        panelLabels.forEach(p => {
+            const label = createLabel(p.text, 26, p.color, p.bg);
+            label.position.set(p.x, 0, t/2+5);
+            label.scale.set(30, 6, 1);
+            labelsGroup.add(label);
+        });
+
+        // ========== HEIGHT LABELS AT BOUNDARIES ==========
+        const heightLabels = [
+            { h: 91.3, x: -w/2, text: '91.3' },
+            { h: 91.4, x: -w/2+36, text: '91.4' },
+            { h: 91.0, x: -w/2+73.4, text: '91.0' },
+            { h: 91.1, x: -w/2+110.8, text: '91.1' },
+            { h: 91.3, x: w/2, text: '91.3' }
+        ];
+        heightLabels.forEach(h => {
+            const label = createLabel(h.text + ' mm', 22, '#059669', 'rgba(236,253,245,0.98)');
+            label.position.set(h.x, -maxH/2+h.h+10, t/2+3);
+            label.scale.set(28, 5, 1);
+            labelsGroup.add(label);
+        });
+
+        // TAPER MARKER LABEL
+        const taperMarker = createLabel('84< TAPER START', 24, '#ea580c', 'rgba(255,237,213,0.98)');
+        taperMarker.position.set(-w/2+18, taperY, t/2+8);
+        taperMarker.scale.set(35, 6, 1);
+        labelsGroup.add(taperMarker);
+
+        // K-EDGE LABEL
+        const kEdge = createLabel('K-EDGE ALL SIDES', 22, '#1e40af', 'rgba(239,246,255,0.98)');
+        kEdge.position.set(-w/2+18, -maxH/2+8, t/2+8);
+        kEdge.scale.set(32, 5.5, 1);
+        labelsGroup.add(kEdge);
+
+        mainGroup.add(labelsGroup);
+        scene.add(mainGroup);
+
+        // Grid
+        const grid = new THREE.GridHelper(300, 30, 0x475569, 0x334155);
+        grid.position.y = -maxH/2 - 30;
+        scene.add(grid);
+
+        // Camera
+        camera.position.set(180, 100, 220);
+        controls.target.set(0, 0, 0);
+        controls.update();
+
+        // View functions
+        function setView(view) {
+            switch(view) {
+                case 'front': camera.position.set(0, 0, 250); break;
+                case 'top': camera.position.set(0, 250, 0.1); break;
+                case 'side': camera.position.set(250, 0, 0); break;
+                case 'detail':
+                    camera.position.set(-80, 40, 100);
+                    controls.target.set(-w/2+18, 20, 0);
+                    controls.update();
+                    return;
+                default: camera.position.set(180, 100, 220);
+            }
+            controls.target.set(0, 0, 0);
+            controls.update();
+        }
+
+        let labelsVisible = true;
+        function toggleLabels() {
+            labelsVisible = !labelsVisible;
+            labelsGroup.visible = labelsVisible;
+        }
+
+        window.setView = setView;
+        window.toggleLabels = toggleLabels;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>

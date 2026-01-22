@@ -1,0 +1,34 @@
+{
+  "skill_name": "glass-manufacturing",
+  "version": "1.0.0",
+  "description": "Convert hand-drawn glass sketches to manufacturing specifications",
+  "settings": {
+    "max_iterations": 3,
+    "default_tolerance_mm": 0.1,
+    "min_edge_distance_mm": 25,
+    "supported_formats": [
+      "jpg",
+      "jpeg",
+      "png",
+      "webp"
+    ],
+    "default_output_dir": "outputs",
+    "default_glass_type": "clear_tempered",
+    "default_edge_type": "flat_polished"
+  },
+  "validation": {
+    "min_panel_size_mm": 100,
+    "max_panel_width_mm": 6000,
+    "max_panel_height_mm": 3500,
+    "min_thickness_mm": 3,
+    "max_thickness_mm": 25,
+    "max_aspect_ratio": 10
+  },
+  "outputs": {
+    "3d_model": true,
+    "manufacturing_instructions": true,
+    "cnc_gcode": true,
+    "technical_drawing": true,
+    "validation_report": true
+  }
+}

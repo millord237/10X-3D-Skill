@@ -1,0 +1,66 @@
+# =============================================================
+# OA-3D-Skill - Complete Python Dependencies
+# For Glass Manufacturing & Plot Boundary Analysis Skills
+# =============================================================
+
+# -------------------------------------------------------------
+# CORE GEOMETRY LIBRARIES (REQUIRED)
+# -------------------------------------------------------------
+shapely>=2.0.0          # Polygon geometry, area, perimeter, validation
+numpy>=1.24.0           # Array math, coordinate transformations
+scipy>=1.10.0           # Advanced mathematical functions
+
+# -------------------------------------------------------------
+# PRECISION MATHEMATICS (REQUIRED)
+# -------------------------------------------------------------
+# decimal is built-in but we use mpmath for extended precision
+mpmath>=1.3.0           # Arbitrary precision arithmetic
+
+# -------------------------------------------------------------
+# GEOSPATIAL & SURVEYING (RECOMMENDED)
+# -------------------------------------------------------------
+pyproj>=3.5.0           # Coordinate system conversions
+geopandas>=0.13.0       # Geospatial data handling
+
+# -------------------------------------------------------------
+# CAD & TECHNICAL DRAWING EXPORT
+# -------------------------------------------------------------
+ezdxf>=1.0.0            # DXF/AutoCAD file generation
+svgwrite>=1.4.0         # SVG file generation
+
+# -------------------------------------------------------------
+# IMAGE PROCESSING (FOR FUTURE VISION)
+# -------------------------------------------------------------
+Pillow>=10.0.0          # Image manipulation
+opencv-python>=4.8.0    # Computer vision (optional)
+
+# -------------------------------------------------------------
+# DATA HANDLING & VALIDATION
+# -------------------------------------------------------------
+pydantic>=2.0.0         # Data validation and settings
+jsonschema>=4.17.0      # JSON schema validation
+
+# -------------------------------------------------------------
+# REPORTING & DOCUMENTATION
+# -------------------------------------------------------------
+jinja2>=3.1.0           # Template engine for reports
+markdown>=3.4.0         # Markdown processing
+
+# -------------------------------------------------------------
+# DEVELOPMENT & TESTING
+# -------------------------------------------------------------
+pytest>=7.4.0           # Testing framework
+black>=23.0.0           # Code formatting
+flake8>=6.0.0           # Linting
+
+# -------------------------------------------------------------
+# STANDARD LIBRARY DEPENDENCIES (NO INSTALL NEEDED)
+# Listed for documentation purposes
+# -------------------------------------------------------------
+# math        - Mathematical functions
+# json        - JSON handling
+# decimal     - Decimal precision
+# pathlib     - Path handling
+# dataclasses - Data structures
+# typing      - Type hints
+# datetime    - Date/time handling

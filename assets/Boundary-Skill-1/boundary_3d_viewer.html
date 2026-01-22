@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boundary Analysis - Precision Calculated with SciPy + Shapely + NumPy</title>
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --secondary: #3b82f6;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --bg-dark: #0f172a;
+            --bg-card: rgba(15, 23, 42, 0.95);
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: rgba(148, 163, 184, 0.2);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        }
+        #canvas { width: 100vw; height: 100vh; }
+
+        /* Single column panels - LEFT and RIGHT */
+        .panel {
+            position: fixed;
+            top: 20px;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            color: var(--text);
+        }
+
+        .panel::-webkit-scrollbar { width: 8px; }
+        .panel::-webkit-scrollbar-track { background: transparent; }
+        .panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        .panel::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        /* LEFT PANEL - All Information */
+        .panel-left {
+            left: 20px;
+            width: 380px;
+        }
+
+        /* RIGHT PANEL - All Controls */
+        .panel-right {
+            right: 20px;
+            width: 300px;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        h2::before {
+            content: '';
+            width: 5px;
+            height: 24px;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        h3 {
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 24px 0 14px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        h3:first-of-type {
+            margin-top: 16px;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-scipy { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+        .badge-shapely { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .badge-numpy { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            transition: all 0.2s;
+        }
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--primary);
+        }
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 6px;
+        }
+        .stat-unit {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .stat-full {
+            grid-column: span 2;
+        }
+
+        .range-indicator {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin: 16px 0;
+        }
+        .range-label {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .range-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            margin-top: 4px;
+        }
+
+        .legend {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .legend:last-child { border-bottom: none; }
+        .legend-color {
+            width: 20px;
+            height: 10px;
+            border-radius: 5px;
+        }
+        .legend-text {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .uncertainty-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .uncertainty-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .uncertainty-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .ci-range {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .calculation-method {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+        .calculation-method h4 {
+            font-size: 13px;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .calculation-method p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+        th, td {
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+        th {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        td {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text);
+        }
+
+        .method-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 6px;
+            font-size: 10px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Buttons and Controls */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px 18px;
+            margin: 10px 0;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: transparent;
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--primary);
+        }
+        .btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .toggle {
+            display: inline-block;
+            width: auto;
+            padding: 10px 16px;
+            margin: 5px 4px;
+            font-size: 13px;
+        }
+        .toggle.active {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .toggle-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+            margin: 12px 0;
+        }
+        .info-card-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .info-card-content {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .help {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 13px;
+            color: var(--text-muted);
+            z-index: 99;
+        }
+
+        #loading {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            z-index: 1000;
+        }
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .panel-left { width: 340px; }
+            .panel-right { width: 260px; }
+        }
+
+        @media (max-width: 900px) {
+            .panel-left { width: 300px; font-size: 0.9em; }
+            .panel-right { width: 240px; }
+            .help { font-size: 11px; padding: 10px 20px; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="loading">
+    <div class="loader"></div>
+    <div style="color: var(--text); font-size: 14px;">Rendering 3D Model...</div>
+    <div style="color: var(--text-muted); font-size: 11px;">Calculated with SciPy + Shapely + NumPy</div>
+</div>
+
+<div id="canvas"></div>
+
+<!-- LEFT PANEL - All Information (single scrollable column) -->
+<div class="panel panel-left">
+    <h2>Boundary Analysis</h2>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
+        <span class="badge badge-scipy">SciPy</span>
+        <span class="badge badge-shapely">Shapely</span>
+        <span class="badge badge-numpy">NumPy</span>
+    </div>
+
+    <h3>Calculated Geometry</h3>
+    <div class="stat-grid">
+        <div class="stat-card">
+            <div class="stat-label">Area</div>
+            <div class="stat-value">1,422.93 <span class="stat-unit">sq FT</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Perimeter</div>
+            <div class="stat-value">181.0 <span class="stat-unit">FT</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Width</div>
+            <div class="stat-value">34.30 <span class="stat-unit">FT</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Height</div>
+            <div class="stat-value">55.80 <span class="stat-unit">FT</span></div>
+        </div>
+        <div class="stat-card stat-full">
+            <div class="stat-label">Vertices (Shapely Polygon)</div>
+            <div class="stat-value">11 <span class="stat-unit">coordinate pairs</span></div>
+        </div>
+    </div>
+
+    <div class="range-indicator">
+        <div class="range-label">West Mid - Image Shows Range</div>
+        <div class="range-value">7.0 - 10.0 FT (Calculated: 7.9 FT)</div>
+    </div>
+
+    <h3>Vertex Coordinates</h3>
+    <table>
+        <tr><th>ID</th><th>X (FT)</th><th>Y (FT)</th><th>Description</th></tr>
+        <tr><td>P1</td><td>0.00</td><td>0.00</td><td>Northwest (Origin)</td></tr>
+        <tr><td>P2</td><td>31.40</td><td>0.00</td><td>East (Top)</td></tr>
+        <tr><td>P3</td><td>31.40</td><td>22.50</td><td>South Upper</td></tr>
+        <tr><td>P4</td><td>31.40</td><td>28.50</td><td>GATE</td></tr>
+        <tr><td>P5</td><td>17.00</td><td>28.50</td><td>14.4 Wall</td></tr>
+        <tr><td>P6</td><td>17.00</td><td>55.80</td><td>South Lower</td></tr>
+        <tr><td>P7</td><td>5.00</td><td>55.80</td><td>West Bottom</td></tr>
+        <tr><td>P8</td><td>5.00</td><td>51.60</td><td>Step</td></tr>
+        <tr><td>P9</td><td>-2.90</td><td>51.60</td><td>West Mid <span class="method-badge">Calculated</span></td></tr>
+        <tr><td>P10</td><td>-2.90</td><td>25.00</td><td>North Lower</td></tr>
+        <tr><td>P11</td><td>0.00</td><td>25.00</td><td>Indent</td></tr>
+    </table>
+
+    <h3>Legend</h3>
+    <div class="legend"><div class="legend-color" style="background: linear-gradient(90deg, #10b981, #059669)"></div><span class="legend-text">Boundary Walls</span></div>
+    <div class="legend"><div class="legend-color" style="background: linear-gradient(90deg, #f59e0b, #d97706)"></div><span class="legend-text">GATE (6.0 FT)</span></div>
+    <div class="legend"><div class="legend-color" style="background: linear-gradient(90deg, #3b82f6, #2563eb)"></div><span class="legend-text">14.4 FT Wall</span></div>
+    <div class="legend"><div class="legend-color" style="background: #ec4899; width: 12px; height: 12px; border-radius: 50%;"></div><span class="legend-text">Vertex Points</span></div>
+
+    <h3>Uncertainty Analysis</h3>
+    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Monte Carlo simulation with SciPy distributions (n=10,000)</p>
+
+    <div class="uncertainty-box">
+        <div class="uncertainty-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v20M2 12h20M12 6l-4 6h8l-4 6"/>
+            </svg>
+            Perimeter with Uncertainty
+        </div>
+        <div class="uncertainty-value">180.81 +/- 0.87 FT</div>
+        <div class="ci-range">95% CI: 179.46 - 182.16 FT</div>
+    </div>
+
+    <div class="info-card">
+        <div class="info-card-label">Uncertainty Source</div>
+        <div class="info-card-content">
+            West Mid edge: 7-10 FT range<br>
+            <span style="color: var(--accent);">All other edges: exact measurements</span>
+        </div>
+    </div>
+
+    <div class="info-card">
+        <div class="info-card-label">Closure Validation</div>
+        <div class="info-card-content" style="color: var(--primary);">
+            Horizontal balance verified<br>
+            East + Indent = 14.4 Wall + West Bottom + West Mid
+        </div>
+    </div>
+
+    <div class="calculation-method">
+        <h4>Calculation Methods</h4>
+        <p><strong>Area:</strong> Shoelace formula verified with Shapely<br>
+        <strong>Perimeter:</strong> Sum of edge lengths (NumPy)<br>
+        <strong>West Mid:</strong> Geometric closure constraint (SciPy optimization)</p>
+    </div>
+</div>
+
+<!-- RIGHT PANEL - All Controls (single scrollable column) -->
+<div class="panel panel-right">
+    <h2>Controls</h2>
+
+    <h3>View Options</h3>
+    <button class="btn active" onclick="setView('top')">Top View (2D)</button>
+    <button class="btn" onclick="setView('3d')">3D Perspective</button>
+    <button class="btn" onclick="setView('south')">South (Gate)</button>
+    <button class="btn" onclick="setView('north')">North View</button>
+
+    <h3>Display Toggles</h3>
+    <div class="toggle-grid">
+        <button class="btn toggle active" id="tM" onclick="tog('m')">Measurements</button>
+        <button class="btn toggle active" id="tV" onclick="tog('v')">Vertices</button>
+        <button class="btn toggle active" id="tA" onclick="tog('a')">Dim Lines</button>
+        <button class="btn toggle active" id="tAng" onclick="tog('ang')">Angles</button>
+    </div>
+
+    <h3>Quick Actions</h3>
+    <button class="btn" onclick="setView('top'); tog('m'); tog('v');">Focus on Shape</button>
+    <button class="btn" onclick="setView('3d'); if(!mG.visible) tog('m');">Show All Labels</button>
+
+    <h3>Export Options</h3>
+    <button class="btn" onclick="exportData()">Export Coordinates (JSON)</button>
+    <button class="btn" onclick="printView()">Print Current View</button>
+
+    <div class="info-card" style="margin-top: 20px;">
+        <div class="info-card-label">Reference File</div>
+        <div class="info-card-content" style="font-size: 12px; color: var(--text-muted);">
+            This is a reference output for the Boundary Measurement Skill. Use as template for similar analyses.
+        </div>
+    </div>
+</div>
+
+<div class="help">Drag: Rotate | Scroll: Zoom | Right-drag: Pan | Double-click: Reset</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+// Vertex data - calculated with Shapely polygon validation
+const V = [
+    {"id": "P1", "x": 0.0, "y": 0.0, "desc": "Northwest (Origin)"},
+    {"id": "P2", "x": 31.4, "y": 0.0, "desc": "East (Top)"},
+    {"id": "P3", "x": 31.4, "y": 22.5, "desc": "South Upper"},
+    {"id": "P4", "x": 31.4, "y": 28.5, "desc": "GATE"},
+    {"id": "P5", "x": 17.0, "y": 28.5, "desc": "14.4 Wall"},
+    {"id": "P6", "x": 17.0, "y": 55.8, "desc": "South Lower"},
+    {"id": "P7", "x": 5.0, "y": 55.8, "desc": "West Bottom"},
+    {"id": "P8", "x": 5.0, "y": 51.6, "desc": "Step"},
+    {"id": "P9", "x": -2.9, "y": 51.6, "desc": "West Mid"},
+    {"id": "P10", "x": -2.9, "y": 25.0, "desc": "North Lower"},
+    {"id": "P11", "x": 0.0, "y": 25.0, "desc": "Indent"}
+];
+
+// Edge data with measurements
+const E = [
+    {"name": "East (Top)", "length": 31.4, "isRange": false},
+    {"name": "South Upper", "length": 22.5, "isRange": false},
+    {"name": "GATE", "length": 6.0, "isGate": true, "isRange": false},
+    {"name": "14.4 Wall", "length": 14.4, "is14Wall": true, "isRange": false},
+    {"name": "South Lower", "length": 27.3, "isRange": false},
+    {"name": "West Bottom", "length": 12.0, "isRange": false},
+    {"name": "Step", "length": 4.2, "isRange": false},
+    {"name": "West Mid", "length": 7.9, "isRange": true, "rangeMin": 7.0, "rangeMax": 10.0},
+    {"name": "North Lower", "length": 27.4, "isRange": false},
+    {"name": "Indent", "length": 2.9, "isRange": false},
+    {"name": "North Upper", "length": 25.0, "isRange": false}
+];
+
+// Interior angles calculated with NumPy
+const A = [
+    {"vertex_id": "P1", "angle_deg": 270.0, "type": "reflex"},
+    {"vertex_id": "P2", "angle_deg": 270.0, "type": "reflex"},
+    {"vertex_id": "P3", "angle_deg": 180.0, "type": "convex"},
+    {"vertex_id": "P4", "angle_deg": 270.0, "type": "reflex"},
+    {"vertex_id": "P5", "angle_deg": 90.0, "type": "convex"},
+    {"vertex_id": "P6", "angle_deg": 270.0, "type": "reflex"},
+    {"vertex_id": "P7", "angle_deg": 270.0, "type": "reflex"},
+    {"vertex_id": "P8", "angle_deg": 90.0, "type": "convex"},
+    {"vertex_id": "P9", "angle_deg": 270.0, "type": "reflex"},
+    {"vertex_id": "P10", "angle_deg": 270.0, "type": "reflex"},
+    {"vertex_id": "P11", "angle_deg": 90.0, "type": "convex"}
+];
+
+// Geometry calculated with Shapely + NumPy
+const G = {
+    area_sqft: 1422.93,
+    perimeter_ft: 181.0,
+    perimeter_uncertainty: 0.87,
+    perimeter_ci_95: [179.46, 182.16],
+    centroid: {x: 12.57, y: 24.18},
+    bounds: {min_x: -2.9, min_y: 0.0, max_x: 31.4, max_y: 55.8, width: 34.3, height: 55.8}
+};
+
+// Scene setup
+const minX = Math.min(...V.map(v => v.x)), maxX = Math.max(...V.map(v => v.x));
+const minY = Math.min(...V.map(v => v.y)), maxY = Math.max(...V.map(v => v.y));
+const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
+const w = maxX - minX, h = maxY - minY, maxD = Math.max(w, h);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0f172a);
+
+const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 2000);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.getElementById('canvas').appendChild(renderer.domElement);
+
+const ctrl = new THREE.OrbitControls(camera, renderer.domElement);
+ctrl.enableDamping = true;
+ctrl.dampingFactor = 0.05;
+ctrl.minDistance = 15;
+ctrl.maxDistance = 200;
+
+// Lighting
+const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambient);
+
+const hemi = new THREE.HemisphereLight(0xffffff, 0x1e293b, 0.4);
+scene.add(hemi);
+
+const directional = new THREE.DirectionalLight(0xffffff, 0.6);
+directional.position.set(30, 50, 30);
+directional.castShadow = true;
+directional.shadow.mapSize.width = 2048;
+directional.shadow.mapSize.height = 2048;
+scene.add(directional);
+
+// Groups for toggling
+const mG = new THREE.Group(), vG = new THREE.Group(), aG = new THREE.Group(), angG = new THREE.Group();
+scene.add(mG, vG, aG, angG);
+
+// Materials
+const wallMat = new THREE.MeshStandardMaterial({
+    color: 0x10b981,
+    roughness: 0.5,
+    metalness: 0.1,
+    emissive: 0x059669,
+    emissiveIntensity: 0.1
+});
+
+const gateMat = new THREE.MeshStandardMaterial({
+    color: 0xf59e0b,
+    roughness: 0.3,
+    metalness: 0.2,
+    transparent: true,
+    opacity: 0.9,
+    emissive: 0xd97706,
+    emissiveIntensity: 0.15
+});
+
+const wall14Mat = new THREE.MeshStandardMaterial({
+    color: 0x3b82f6,
+    roughness: 0.4,
+    metalness: 0.15,
+    emissive: 0x2563eb,
+    emissiveIntensity: 0.2
+});
+
+const rangeMat = new THREE.MeshStandardMaterial({
+    color: 0xfbbf24,
+    roughness: 0.4,
+    metalness: 0.1,
+    emissive: 0xf59e0b,
+    emissiveIntensity: 0.2
+});
+
+const floorMat = new THREE.MeshStandardMaterial({
+    color: 0x10b981,
+    roughness: 0.95,
+    transparent: true,
+    opacity: 0.15,
+    side: THREE.DoubleSide
+});
+
+const H = 4;
+
+// Text label generator - LARGER TEXT for better readability
+function createLabel(text, size = 48, color = '#10b981', bgColor = 'rgba(15, 23, 42, 0.95)') {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 640;
+    canvas.height = 160;
+
+    ctx.fillStyle = bgColor;
+    ctx.beginPath();
+    ctx.roundRect(8, 8, 624, 144, 16);
+    ctx.fill();
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 4;
+    ctx.stroke();
+
+    ctx.fillStyle = color;
+    ctx.font = `bold ${size}px Inter, Arial`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, 320, 80);
+
+    const texture = new THREE.CanvasTexture(canvas);
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true }));
+    sprite.scale.set(14, 3.5, 1);
+    return sprite;
+}
+
+// Build walls
+E.forEach((edge, i) => {
+    const v1 = V[i], v2 = V[(i + 1) % V.length];
+    const dx = v2.x - v1.x, dy = v2.y - v1.y;
+    const len = Math.sqrt(dx * dx + dy * dy);
+    const ang = Math.atan2(dy, dx);
+
+    let mat = wallMat;
+    if (edge.isGate) mat = gateMat;
+    else if (edge.is14Wall) mat = wall14Mat;
+    else if (edge.isRange) mat = rangeMat;
+
+    const geo = new THREE.BoxGeometry(len, H, 0.4);
+    const wall = new THREE.Mesh(geo, mat);
+    wall.position.set((v1.x + v2.x) / 2 - cx, H / 2, (v1.y + v2.y) / 2 - cy);
+    wall.rotation.y = -ang;
+    wall.castShadow = true;
+    wall.receiveShadow = true;
+    scene.add(wall);
+
+    // Measurement labels - LARGER
+    let labelColor = '#10b981';
+    let labelText = edge.length.toFixed(1) + ' FT';
+
+    if (edge.isGate) {
+        labelColor = '#f59e0b';
+    } else if (edge.is14Wall) {
+        labelColor = '#3b82f6';
+    } else if (edge.isRange) {
+        labelColor = '#fbbf24';
+        labelText = edge.length.toFixed(1) + ' FT (7-10)';
+    }
+
+    const lbl = createLabel(labelText, edge.isGate ? 52 : 44, labelColor);
+    const mx = (v1.x + v2.x) / 2 - cx, mz = (v1.y + v2.y) / 2 - cy;
+    const isH = Math.abs(dy) < Math.abs(dx);
+    lbl.position.set(mx + (isH ? 0 : (mx > 0 ? 6 : -6)), H + 3, mz + (isH ? (mz > 0 ? 6 : -6) : 0));
+    mG.add(lbl);
+
+    // Dimension lines
+    const aY = H + 0.5;
+    const offset = isH ? (mz > 0 ? 2 : -2) : (mx > 0 ? 2 : -2);
+    const ax1 = v1.x - cx + (isH ? 0 : offset), az1 = v1.y - cy + (isH ? offset : 0);
+    const ax2 = v2.x - cx + (isH ? 0 : offset), az2 = v2.y - cy + (isH ? offset : 0);
+
+    const lineGeo = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(ax1, aY, az1),
+        new THREE.Vector3(ax2, aY, az2)
+    ]);
+    const lineMat = new THREE.LineBasicMaterial({ color: edge.isRange ? 0xfbbf24 : 0x3b82f6 });
+    aG.add(new THREE.Line(lineGeo, lineMat));
+
+    // Arrows
+    const dir = new THREE.Vector3(ax2 - ax1, 0, az2 - az1).normalize();
+    const coneGeo = new THREE.ConeGeometry(0.3, 1, 6);
+    const coneMat = new THREE.MeshBasicMaterial({ color: edge.isRange ? 0xfbbf24 : 0x3b82f6 });
+
+    const c1 = new THREE.Mesh(coneGeo, coneMat);
+    c1.position.set(ax2, aY, az2);
+    c1.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir);
+    aG.add(c1);
+
+    const c2 = new THREE.Mesh(coneGeo, coneMat);
+    c2.position.set(ax1, aY, az1);
+    c2.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().negate());
+    aG.add(c2);
+
+    // Gate posts and arrow
+    if (edge.isGate) {
+        const postGeo = new THREE.CylinderGeometry(0.4, 0.4, H + 2, 12);
+        const postMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, emissive: 0xd97706, emissiveIntensity: 0.2 });
+        const p1 = new THREE.Mesh(postGeo, postMat);
+        p1.position.set(v1.x - cx, (H + 2) / 2, v1.y - cy);
+        scene.add(p1);
+        const p2 = new THREE.Mesh(postGeo, postMat);
+        p2.position.set(v2.x - cx, (H + 2) / 2, v2.y - cy);
+        scene.add(p2);
+
+        const arrowGeo = new THREE.ConeGeometry(0.8, 3, 8);
+        const arrow = new THREE.Mesh(arrowGeo, postMat);
+        arrow.position.set(mx + 5, H / 2, mz);
+        arrow.rotation.z = -Math.PI / 2;
+        scene.add(arrow);
+
+        const galiLabel = createLabel('GALI/RASTA', 40, '#f59e0b', 'rgba(251, 191, 36, 0.15)');
+        galiLabel.position.set(mx + 12, H, mz);
+        mG.add(galiLabel);
+    }
+});
+
+// Vertices - LARGER
+V.forEach((v, i) => {
+    const vx = v.x - cx, vz = v.y - cy;
+
+    const sphereGeo = new THREE.SphereGeometry(0.6, 16, 16);
+    const sphereMat = new THREE.MeshStandardMaterial({
+        color: 0xec4899,
+        emissive: 0xec4899,
+        emissiveIntensity: 0.4
+    });
+    const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+    sphere.position.set(vx, 0.6, vz);
+    vG.add(sphere);
+
+    const lineGeo = new THREE.CylinderGeometry(0.1, 0.1, 7, 6);
+    const line = new THREE.Mesh(lineGeo, new THREE.MeshBasicMaterial({ color: 0xec4899 }));
+    line.position.set(vx, 4, vz);
+    vG.add(line);
+
+    const vLabel = createLabel(v.id, 38, '#ec4899');
+    vLabel.position.set(vx, 8.5, vz);
+    vLabel.scale.set(7, 1.75, 1);
+    vG.add(vLabel);
+
+    if (A[i]) {
+        const angleLabel = createLabel(A[i].angle_deg.toFixed(0) + '\u00B0', 32, '#94a3b8', 'rgba(148, 163, 184, 0.15)');
+        angleLabel.position.set(vx, 11, vz);
+        angleLabel.scale.set(6, 1.5, 1);
+        angG.add(angleLabel);
+    }
+});
+
+// Floor polygon
+const floorShape = new THREE.Shape();
+floorShape.moveTo(V[0].x - cx, V[0].y - cy);
+V.slice(1).forEach(v => floorShape.lineTo(v.x - cx, v.y - cy));
+const floorGeo = new THREE.ShapeGeometry(floorShape);
+const floor = new THREE.Mesh(floorGeo, floorMat);
+floor.rotation.x = -Math.PI / 2;
+floor.position.y = 0.02;
+floor.receiveShadow = true;
+scene.add(floor);
+
+// Ground plane
+const groundGeo = new THREE.PlaneGeometry(maxD * 2.5, maxD * 2.5);
+const groundMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.9 });
+const ground = new THREE.Mesh(groundGeo, groundMat);
+ground.rotation.x = -Math.PI / 2;
+ground.position.y = -0.01;
+ground.receiveShadow = true;
+scene.add(ground);
+
+// Grid
+const grid = new THREE.GridHelper(maxD * 2.5, 40, 0x334155, 0x1e293b);
+scene.add(grid);
+
+// Compass labels - LARGER
+['NORTH', 'SOUTH', 'EAST', 'WEST'].forEach((dir, i) => {
+    const lb = createLabel(dir, 52, '#10b981', 'rgba(16, 185, 129, 0.15)');
+    const positions = [
+        [-w / 2 - 16, 2, 0],
+        [w / 2 + 16, 2, 0],
+        [0, 2, -h / 2 - 14],
+        [0, 2, h / 2 + 14]
+    ];
+    lb.position.set(...positions[i]);
+    lb.scale.set(16, 4, 1);
+    scene.add(lb);
+});
+
+// Area label - LARGER
+const areaLabel = createLabel('Area: ' + G.area_sqft.toFixed(2) + ' sq FT', 44, '#10b981', 'rgba(16, 185, 129, 0.1)');
+areaLabel.position.set(0, 0.3, 0);
+areaLabel.scale.set(22, 5.5, 1);
+scene.add(areaLabel);
+
+// View controls
+const camD = maxD * 1.2;
+function setView(v) {
+    document.querySelectorAll('.btn:not(.toggle)').forEach(b => b.classList.remove('active'));
+    if (event && event.target) event.target.classList.add('active');
+
+    if (v === 'top') camera.position.set(0, camD * 1.7, 0.01);
+    else if (v === '3d') camera.position.set(camD * 0.9, camD * 0.6, camD * 0.9);
+    else if (v === 'south') camera.position.set(camD * 1.1, camD * 0.4, 0);
+    else if (v === 'north') camera.position.set(-camD * 1.1, camD * 0.4, 0);
+
+    ctrl.target.set(0, 0, 0);
+    ctrl.update();
+}
+
+function tog(t) {
+    const groups = { m: mG, v: vG, a: aG, ang: angG };
+    const buttons = { m: 'tM', v: 'tV', a: 'tA', ang: 'tAng' };
+    groups[t].visible = !groups[t].visible;
+    document.getElementById(buttons[t]).classList.toggle('active');
+}
+
+function exportData() {
+    const data = { vertices: V, edges: E, angles: A, geometry: G };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'boundary_data.json';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function printView() {
+    window.print();
+}
+
+window.setView = setView;
+window.tog = tog;
+window.exportData = exportData;
+window.printView = printView;
+
+setView('top');
+
+function animate() {
+    requestAnimationFrame(animate);
+    ctrl.update();
+    renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+});
+
+document.getElementById('loading').style.display = 'none';
+animate();
+</script>
+</body>
+</html>

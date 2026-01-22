@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700">
+    <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L0,8 L8,4 z" fill="#1e40af"/>
+        </marker>
+        <marker id="arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+            <path d="M8,0 L8,8 L0,4 z" fill="#1e40af"/>
+        </marker>
+        <linearGradient id="glass" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#dbeafe;stop-opacity:0.9"/>
+            <stop offset="100%" style="stop-color:#93c5fd;stop-opacity:0.7"/>
+        </linearGradient>
+        <linearGradient id="door" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:0.9"/>
+            <stop offset="100%" style="stop-color:#fcd34d;stop-opacity:0.7"/>
+        </linearGradient>
+    </defs>
+
+    <style>
+        .title { font-family: Arial, sans-serif; font-weight: bold; fill: #1e40af; }
+        .subtitle { font-family: Arial, sans-serif; fill: #6b7280; }
+        .measure { font-family: monospace; font-weight: bold; fill: #1e40af; }
+        .measure-sm { font-family: monospace; font-size: 11px; fill: #1e40af; }
+        .panel-label { font-family: Arial, sans-serif; font-weight: bold; fill: #1e40af; }
+        .panel-type { font-family: Arial, sans-serif; font-size: 10px; fill: #6b7280; }
+        .height-label { font-family: monospace; font-size: 11px; font-weight: bold; fill: #059669; }
+        .taper-label { font-family: Arial, sans-serif; font-weight: bold; fill: #ea580c; }
+        .spec-label { font-family: Arial, sans-serif; font-size: 11px; fill: #6b7280; }
+        .spec-value { font-family: monospace; font-size: 11px; font-weight: bold; fill: #1e40af; }
+    </style>
+
+    <!-- Background -->
+    <rect width="1000" height="700" fill="#f8fafc"/>
+
+    <!-- Header -->
+    <rect x="0" y="0" width="1000" height="50" fill="#1e40af"/>
+    <text x="20" y="32" class="title" font-size="18" fill="#fff">Glass Panel Technical Drawing - Glass-Skill-1</text>
+    <text x="980" y="32" class="subtitle" font-size="11" fill="#fff" text-anchor="end">Scale 1:5 | Units: mm</text>
+
+    <!-- Main Drawing Area -->
+    <rect x="30" y="70" width="640" height="520" fill="#fff" stroke="#e5e7eb" stroke-width="1" rx="4"/>
+
+    <!-- Glass Panel Drawing - Scale: 1mm = 4px -->
+    <g id="panel" transform="translate(80, 120)">
+
+        <!-- PANEL 1 (DOOR) - Tapered shape -->
+        <!-- 36mm bottom, 36.2mm top, taper starts at 84mm -->
+        <!-- Heights: Left=91.3, Right=91.4 -->
+        <polygon points="0,365.2 144,365.2 144,29.2 144.8,0 0,0.4"
+                 fill="url(#door)" stroke="#92400e" stroke-width="2"/>
+
+        <!-- Taper line at 84mm (336px from bottom, or 29.2px from top) -->
+        <line x1="0" y1="29.2" x2="144" y2="29.2" stroke="#f97316" stroke-width="2" stroke-dasharray="6,3"/>
+
+        <!-- Panel 1 Labels -->
+        <text x="72" y="-25" text-anchor="middle" class="panel-label" font-size="14">Panel 1</text>
+        <text x="72" y="-10" text-anchor="middle" class="taper-label" font-size="11">(DOOR - Tapered)</text>
+
+        <!-- Taper annotation box -->
+        <rect x="20" y="5" width="100" height="20" fill="#fff7ed" stroke="#f97316" rx="3"/>
+        <text x="70" y="18" text-anchor="middle" class="taper-label" font-size="9">84&lt; taper: 7.3mm</text>
+
+        <!-- Bottom width: 36.0mm -->
+        <text x="72" y="385" text-anchor="middle" class="measure" font-size="12">36.0 mm</text>
+        <!-- Top width: 36.2mm -->
+        <text x="72" y="45" text-anchor="middle" class="taper-label" font-size="10">36.2 mm (top)</text>
+
+        <!-- Height label left edge: 91.3 -->
+        <text x="-10" y="182" text-anchor="middle" class="height-label" transform="rotate(-90 -10 182)">91.3</text>
+
+        <!-- K-edge marker -->
+        <path d="M 5,355 L 5,340 L 18,347.5 Z" fill="#1e40af"/>
+        <text x="22" y="352" class="measure-sm" font-size="9">K-edge</text>
+
+
+        <!-- DIVIDER 1 - at x=144 (36mm) -->
+        <line x1="144" y1="0" x2="144" y2="365.2" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="8,4"/>
+
+        <!-- Height at P1-P2 boundary: 91.4 -->
+        <text x="144" y="-8" text-anchor="middle" class="height-label" font-weight="bold">91.4</text>
+
+
+        <!-- PANEL 2 - 37.4mm wide, heights: L=91.4, R=91.0 -->
+        <polygon points="144,365.6 293.6,365.6 293.6,1.6 144,0"
+                 fill="url(#glass)" stroke="#1e40af" stroke-width="2"/>
+
+        <text x="218.8" y="-25" text-anchor="middle" class="panel-label" font-size="14">Panel 2</text>
+        <text x="218.8" y="-10" text-anchor="middle" class="panel-type">(PANEL)</text>
+        <text x="218.8" y="385" text-anchor="middle" class="measure" font-size="12">37.4 mm</text>
+
+
+        <!-- DIVIDER 2 - at x=293.6 (73.4mm) -->
+        <line x1="293.6" y1="1.6" x2="293.6" y2="365.6" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="8,4"/>
+
+        <!-- Height at P2-P3 boundary: 91.0 -->
+        <text x="293.6" y="-8" text-anchor="middle" class="height-label" font-weight="bold">91.0</text>
+
+
+        <!-- PANEL 3 - 37.4mm wide, heights: L=91.0, R=91.1 -->
+        <polygon points="293.6,365.6 443.2,365.2 443.2,1.2 293.6,1.6"
+                 fill="url(#glass)" stroke="#1e40af" stroke-width="2"/>
+
+        <text x="368.4" y="-25" text-anchor="middle" class="panel-label" font-size="14">Panel 3</text>
+        <text x="368.4" y="-10" text-anchor="middle" class="panel-type">(PANEL)</text>
+        <text x="368.4" y="385" text-anchor="middle" class="measure" font-size="12">37.4 mm</text>
+
+
+        <!-- DIVIDER 3 - at x=443.2 (110.8mm) -->
+        <line x1="443.2" y1="1.2" x2="443.2" y2="365.2" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="8,4"/>
+
+        <!-- Height at P3-P4 boundary: 91.1 -->
+        <text x="443.2" y="-8" text-anchor="middle" class="height-label" font-weight="bold">91.1</text>
+
+
+        <!-- PANEL 4 - 37.4mm wide, heights: L=91.1, R=91.3 -->
+        <polygon points="443.2,365.2 592.8,365.2 592.8,0.8 443.2,1.2"
+                 fill="url(#glass)" stroke="#1e40af" stroke-width="2"/>
+
+        <text x="518" y="-25" text-anchor="middle" class="panel-label" font-size="14">Panel 4</text>
+        <text x="518" y="-10" text-anchor="middle" class="panel-type">(PANEL)</text>
+        <text x="518" y="385" text-anchor="middle" class="measure" font-size="12">37.4 mm</text>
+
+        <!-- Height at right edge: 91.3 -->
+        <text x="605" y="182" text-anchor="middle" class="height-label" transform="rotate(90 605 182)">91.3</text>
+
+
+        <!-- DIMENSION LINES -->
+
+        <!-- Total Width -->
+        <line x1="0" y1="420" x2="592.8" y2="420" stroke="#1e40af" stroke-width="1.5"
+              marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+        <line x1="0" y1="400" x2="0" y2="430" stroke="#1e40af" stroke-width="1"/>
+        <line x1="592.8" y1="400" x2="592.8" y2="430" stroke="#1e40af" stroke-width="1"/>
+        <rect x="246" y="408" width="100" height="22" fill="#dbeafe" stroke="#1e40af" rx="3"/>
+        <text x="296" y="424" text-anchor="middle" class="measure" font-size="13">148.4 mm</text>
+
+        <!-- Total Height (left side) -->
+        <line x1="-35" y1="0.4" x2="-35" y2="365.2" stroke="#1e40af" stroke-width="1.5"
+              marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+        <line x1="-45" y1="0.4" x2="-25" y2="0.4" stroke="#1e40af" stroke-width="1"/>
+        <line x1="-45" y1="365.2" x2="-25" y2="365.2" stroke="#1e40af" stroke-width="1"/>
+        <text x="-40" y="182" text-anchor="middle" class="measure" font-size="11" transform="rotate(-90 -40 182)">91.3 mm</text>
+
+        <!-- Taper section height -->
+        <line x1="-55" y1="0.4" x2="-55" y2="29.2" stroke="#f97316" stroke-width="1.5"
+              marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+        <text x="-60" y="15" text-anchor="middle" class="taper-label" font-size="9" transform="rotate(-90 -60 15)">7.3</text>
+
+        <!-- Straight section height -->
+        <line x1="-55" y1="29.2" x2="-55" y2="365.2" stroke="#1e40af" stroke-width="1"
+              marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+        <text x="-60" y="197" text-anchor="middle" class="measure-sm" font-size="9" transform="rotate(-90 -60 197)">84.0</text>
+
+    </g>
+
+    <!-- Specifications Panel -->
+    <g transform="translate(700, 70)">
+        <rect x="0" y="0" width="280" height="520" fill="#fff" stroke="#e5e7eb" stroke-width="1" rx="4"/>
+
+        <!-- Panel Schedule -->
+        <rect x="0" y="0" width="280" height="30" fill="#1e40af" rx="4"/>
+        <rect x="0" y="15" width="280" height="15" fill="#1e40af"/>
+        <text x="140" y="20" text-anchor="middle" class="title" font-size="12" fill="#fff">SPECIFICATIONS</text>
+
+        <!-- Overall Dimensions -->
+        <text x="15" y="55" class="spec-label" font-weight="bold">Overall Dimensions</text>
+        <line x1="15" y1="62" x2="265" y2="62" stroke="#e5e7eb"/>
+
+        <text x="20" y="80" class="spec-label">Total Width:</text>
+        <text x="150" y="80" class="spec-value">148.4 mm</text>
+
+        <text x="20" y="98" class="spec-label">Max Height:</text>
+        <text x="150" y="98" class="spec-value">91.4 mm</text>
+
+        <text x="20" y="116" class="spec-label">Thickness:</text>
+        <text x="150" y="116" class="spec-value">4.0 mm</text>
+
+        <!-- Panel Widths -->
+        <text x="15" y="145" class="spec-label" font-weight="bold">Panel Widths</text>
+        <line x1="15" y1="152" x2="265" y2="152" stroke="#e5e7eb"/>
+
+        <text x="20" y="170" class="spec-label">P1 (Door) Bottom:</text>
+        <text x="150" y="170" class="spec-value">36.0 mm</text>
+
+        <text x="20" y="188" class="spec-label">P1 (Door) Top:</text>
+        <text x="150" y="188" class="spec-value" fill="#ea580c">36.2 mm</text>
+
+        <text x="20" y="206" class="spec-label">P2:</text>
+        <text x="150" y="206" class="spec-value">37.4 mm</text>
+
+        <text x="20" y="224" class="spec-label">P3:</text>
+        <text x="150" y="224" class="spec-value">37.4 mm</text>
+
+        <text x="20" y="242" class="spec-label">P4:</text>
+        <text x="150" y="242" class="spec-value">37.4 mm</text>
+
+        <!-- Panel 1 Taper Detail -->
+        <rect x="10" y="255" width="260" height="80" fill="#fff7ed" stroke="#f97316" rx="4"/>
+        <text x="140" y="275" text-anchor="middle" class="taper-label" font-size="11">PANEL 1 TAPER DETAIL</text>
+
+        <text x="20" y="295" class="spec-label">Taper Start (84&lt;):</text>
+        <text x="150" y="295" class="spec-value" fill="#ea580c">84.0 mm</text>
+
+        <text x="20" y="313" class="spec-label">Taper Section:</text>
+        <text x="150" y="313" class="spec-value" fill="#ea580c">7.3 mm</text>
+
+        <text x="20" y="331" class="spec-label">Width Increase:</text>
+        <text x="150" y="331" class="spec-value" fill="#ea580c">+0.2 mm</text>
+
+        <!-- Heights at Boundaries -->
+        <text x="15" y="360" class="spec-label" font-weight="bold">Heights at Boundaries</text>
+        <line x1="15" y1="367" x2="265" y2="367" stroke="#e5e7eb"/>
+
+        <text x="20" y="385" class="spec-label">Left Edge (P1):</text>
+        <text x="150" y="385" class="spec-value" fill="#059669">91.3 mm</text>
+
+        <text x="20" y="403" class="spec-label">P1-P2 Joint:</text>
+        <text x="150" y="403" class="spec-value" fill="#059669">91.4 mm</text>
+
+        <text x="20" y="421" class="spec-label">P2-P3 Joint:</text>
+        <text x="150" y="421" class="spec-value" fill="#059669">91.0 mm</text>
+
+        <text x="20" y="439" class="spec-label">P3-P4 Joint:</text>
+        <text x="150" y="439" class="spec-value" fill="#059669">91.1 mm</text>
+
+        <text x="20" y="457" class="spec-label">Right Edge (P4):</text>
+        <text x="150" y="457" class="spec-value" fill="#059669">91.3 mm</text>
+
+        <!-- Manufacturing -->
+        <text x="15" y="485" class="spec-label" font-weight="bold">Manufacturing</text>
+        <line x1="15" y1="492" x2="265" y2="492" stroke="#e5e7eb"/>
+
+        <text x="20" y="510" class="spec-label">Edge:</text>
+        <text x="80" y="510" class="spec-value">K-Edge All</text>
+
+        <text x="150" y="510" class="spec-label">Glass:</text>
+        <text x="190" y="510" class="spec-value">Tempered</text>
+    </g>
+
+    <!-- Legend -->
+    <g transform="translate(30, 605)">
+        <rect x="0" y="0" width="300" height="75" fill="#fff" stroke="#e5e7eb" rx="4"/>
+        <text x="15" y="20" class="panel-label" font-size="11">LEGEND</text>
+        <line x1="15" y1="28" x2="285" y2="28" stroke="#e5e7eb"/>
+
+        <rect x="15" y="38" width="20" height="12" fill="url(#door)" stroke="#92400e"/>
+        <text x="45" y="48" class="spec-label">Panel 1 (Door - Tapered)</text>
+
+        <rect x="15" y="55" width="20" height="12" fill="url(#glass)" stroke="#1e40af"/>
+        <text x="45" y="65" class="spec-label">Panels 2-4 (Glass)</text>
+
+        <line x1="170" y1="44" x2="200" y2="44" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="6,3"/>
+        <text x="210" y="48" class="spec-label">Panel Divider</text>
+
+        <line x1="170" y1="61" x2="200" y2="61" stroke="#f97316" stroke-width="2" stroke-dasharray="4,2"/>
+        <text x="210" y="65" class="spec-label">Taper Line (84&lt;)</text>
+    </g>
+
+    <!-- Title Block -->
+    <g transform="translate(350, 605)">
+        <rect x="0" y="0" width="630" height="75" fill="#fff" stroke="#1e40af" stroke-width="2" rx="4"/>
+
+        <line x1="200" y1="0" x2="200" y2="75" stroke="#e5e7eb"/>
+        <line x1="420" y1="0" x2="420" y2="75" stroke="#e5e7eb"/>
+
+        <!-- Drawing Info -->
+        <text x="100" y="25" text-anchor="middle" class="panel-label" font-size="14">GLASS PANEL</text>
+        <text x="100" y="45" text-anchor="middle" class="spec-label">Drawing: GP-001</text>
+        <text x="100" y="62" text-anchor="middle" class="spec-label">Source: Glass-Skill-1.jpeg</text>
+
+        <!-- Tolerances -->
+        <text x="210" y="18" class="spec-label" font-weight="bold">TOLERANCES</text>
+        <text x="210" y="35" class="spec-label">Linear: +/-1.5mm</text>
+        <text x="210" y="50" class="spec-label">Diagonal: +/-3.0mm</text>
+        <text x="210" y="65" class="spec-label">Thickness: +/-0.5mm</text>
+
+        <!-- Width Verification -->
+        <text x="430" y="18" class="spec-label" font-weight="bold">WIDTH VERIFICATION</text>
+        <text x="430" y="38" class="spec-value" fill="#059669">36.0 + 37.4 + 37.4 + 37.4</text>
+        <text x="430" y="55" class="spec-value" fill="#059669">= 148.2 mm (+ 0.2 taper)</text>
+        <text x="430" y="70" class="spec-value" fill="#059669">= 148.4 mm [OK]</text>
+    </g>
+
+</svg>

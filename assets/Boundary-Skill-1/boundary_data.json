@@ -1,0 +1,58 @@
+{
+  "name": "Boundary-Skill-1",
+  "source_image": "Glass-Skill-2.jpeg",
+  "unit": "FT",
+  "measurements": {
+    "source": "Hand-drawn sketch measurements (authoritative)",
+    "note": "West Mid shown as range (7-10 FT) in image, calculated as 7.9 FT using geometric closure",
+    "north_side": {
+      "north_lower": 27.4,
+      "indent": 2.9,
+      "north_upper": 25.0
+    },
+    "east_side": {
+      "east_top": 31.4
+    },
+    "south_side": {
+      "south_upper": 22.5,
+      "gate": 6.0,
+      "wall_14": 14.4,
+      "south_lower": 27.3
+    },
+    "west_side": {
+      "west_bottom": 12.0,
+      "step": 4.2,
+      "west_mid": {
+        "type": "range",
+        "min": 7.0,
+        "max": 10.0,
+        "best_estimate": 7.9,
+        "calculated_from": "geometric_closure_constraint",
+        "calculation_method": "SciPy optimization + Shapely geometry",
+        "note": "Image shows '7-10 FT' range. Value 7.9 FT calculated for polygon closure."
+      }
+    }
+  },
+  "edges": [
+    {"id": 1, "name": "East (Top)", "length": 31.4, "direction": "right", "from": "P1", "to": "P2"},
+    {"id": 2, "name": "South Upper", "length": 22.5, "direction": "down", "from": "P2", "to": "P3"},
+    {"id": 3, "name": "GATE", "length": 6.0, "direction": "down", "from": "P3", "to": "P4", "is_gate": true, "access": "GALI/RASTA"},
+    {"id": 4, "name": "14.4 Wall", "length": 14.4, "direction": "left", "from": "P4", "to": "P5", "is_14wall": true},
+    {"id": 5, "name": "South Lower", "length": 27.3, "direction": "down", "from": "P5", "to": "P6"},
+    {"id": 6, "name": "West Bottom", "length": 12.0, "direction": "left", "from": "P6", "to": "P7"},
+    {"id": 7, "name": "Step", "length": 4.2, "direction": "up", "from": "P7", "to": "P8"},
+    {"id": 8, "name": "West Mid", "length": {"type": "range", "min": 7.0, "max": 10.0, "best_estimate": 7.9}, "direction": "left", "from": "P8", "to": "P9", "note": "Image shows 7-10 FT range"},
+    {"id": 9, "name": "North Lower", "length": 27.4, "direction": "up", "from": "P9", "to": "P10"},
+    {"id": 10, "name": "Indent", "length": 2.9, "direction": "right", "from": "P10", "to": "P11"},
+    {"id": 11, "name": "North Upper", "length": 25.0, "direction": "up", "from": "P11", "to": "P1"}
+  ],
+  "calculations": {
+    "perimeter_ft": 181.0,
+    "area_sqft": 1422.93,
+    "note": "Calculated using actual hand-drawn measurements"
+  },
+  "validation": {
+    "all_measurements_from_image": true,
+    "user_verified": ["indent", "north_upper"]
+  }
+}

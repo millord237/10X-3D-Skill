@@ -1,0 +1,93 @@
+{
+  "dimensions": {
+    "width": 148.4,
+    "max_height": 91.4,
+    "thickness": 4.0
+  },
+  "height_profile": [
+    {
+      "position": "left_edge",
+      "height": 91.3
+    },
+    {
+      "position": "panel1_panel2_boundary",
+      "height": 91.4
+    },
+    {
+      "position": "panel2_panel3_boundary",
+      "height": 91.0
+    },
+    {
+      "position": "panel3_panel4_boundary",
+      "height": 91.1
+    },
+    {
+      "position": "right_edge",
+      "height": 91.3
+    }
+  ],
+  "sections": [
+    {
+      "name": "Panel 1",
+      "type": "door",
+      "width_bottom": 36.0,
+      "width_top": 36.2,
+      "height_left": 91.3,
+      "height_right": 91.4,
+      "x_offset": 0,
+      "y_offset": 0,
+      "is_tapered": true,
+      "taper_start_height": 84.0,
+      "tapered_section_height": 7.3,
+      "straight_section_height": 84.0,
+      "width_increase": 0.2,
+      "notes": "Panel 1 (Door) - TAPERED: 36mm at bottom, 36.2mm at top. Taper starts at 84mm height."
+    },
+    {
+      "name": "Panel 2",
+      "type": "panel",
+      "width": 37.4,
+      "height_left": 91.4,
+      "height_right": 91.0,
+      "x_offset": 36.0,
+      "y_offset": 0,
+      "notes": "Panel 2 - Left: 91.4mm, Right: 91.0mm"
+    },
+    {
+      "name": "Panel 3",
+      "type": "panel",
+      "width": 37.4,
+      "height_left": 91.0,
+      "height_right": 91.1,
+      "x_offset": 73.4,
+      "y_offset": 0,
+      "notes": "Panel 3 - Left: 91.0mm, Right: 91.1mm"
+    },
+    {
+      "name": "Panel 4",
+      "type": "panel",
+      "width": 37.4,
+      "height_left": 91.1,
+      "height_right": 91.3,
+      "x_offset": 110.8,
+      "y_offset": 0,
+      "notes": "Panel 4 - Left: 91.1mm, Right: 91.3mm (right edge of glass)"
+    }
+  ],
+  "edge_type": "K_edge",
+  "glass_type": "clear_tempered",
+  "notes": [
+    "Total width: 148.4mm",
+    "Panel 1 (Door): TAPERED - 36mm at bottom, 36.2mm at top",
+    "Taper: Straight (90-degree) up to 84mm height, then slight outward slant (+0.2mm)",
+    "84< symbol = reference point where taper begins (at 84mm from bottom)",
+    "Panels 2-4: 37.4mm wide each (rectangular, not tapered)",
+    "Width verification: 36.0 + 37.4 + 37.4 + 37.4 = 148.2mm (+0.2 taper = 148.4mm)",
+    "K-Edge finish on all panels, all sides"
+  ],
+  "user_confirmed": true,
+  "verification": {
+    "confidence": 95.0,
+    "iteration": 3
+  }
+}

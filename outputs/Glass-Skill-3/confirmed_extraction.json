@@ -1,0 +1,92 @@
+{
+  "project": "Glass-Skill-3",
+  "generated": "2026-01-15",
+  "source_image": "inputs/Glass-Skills/Glass-Skill-3.jpeg",
+  "unit": "mm",
+  "overall_dimensions": {
+    "total_width": 2032,
+    "max_height": 2840,
+    "thickness": 4.0
+  },
+  "panels": [
+    {
+      "id": 1,
+      "name": "Panel 1",
+      "type": "Fixed Glass Rectangle",
+      "width": 1035,
+      "height": 2835,
+      "x_offset": 0,
+      "holes": [
+        { "x": 30, "y": 30, "position": "bottom-left" },
+        { "x": 1005, "y": 30, "position": "bottom-right" },
+        { "x": 30, "y": 2805, "position": "top-left" },
+        { "x": 1005, "y": 2805, "position": "top-right" }
+      ],
+      "hole_count": 4,
+      "features": []
+    },
+    {
+      "id": 2,
+      "name": "Panel 2 - Door Frame",
+      "type": "3D Door Frame with Recessed Door",
+      "label": "Seal Sheet 2",
+      "label_original": "सील शीट 2",
+      "x_offset": 1035,
+      "frame": {
+        "width": 997,
+        "height": 2840,
+        "description": "Outer frame dimensions"
+      },
+      "top_section": {
+        "width": 997,
+        "height": 710,
+        "description": "Fixed glass section above door"
+      },
+      "door": {
+        "width": 993,
+        "height": 2130,
+        "recess_depth": 20,
+        "description": "Recessed door section (set back from frame)"
+      },
+      "door_holes": [
+        { "x": 30, "y": 30, "position": "bottom-left" },
+        { "x": 963, "y": 30, "position": "bottom-right" },
+        { "x": 30, "y": 2100, "position": "top-left" },
+        { "x": 963, "y": 2100, "position": "top-right" }
+      ],
+      "hole_count": 4,
+      "features": ["3D Door Frame", "Recessed Door Panel", "Top Fixed Section"]
+    }
+  ],
+  "totals": {
+    "width": 2032,
+    "panel_count": 2,
+    "hole_count": 8
+  },
+  "calculations": {
+    "total_width": "1035 + 997 = 2032 mm",
+    "panel_2_frame_height": "710 + 2130 = 2840 mm",
+    "panel_1_area": "1035 * 2835 = 2,934,225 sq mm",
+    "panel_2_top_section_area": "997 * 710 = 707,870 sq mm",
+    "panel_2_door_area": "993 * 2130 = 2,115,090 sq mm",
+    "total_glass_area": "5,757,185 sq mm = 5.76 sq m"
+  },
+  "verification": {
+    "width_sum_matches": true,
+    "heights_consistent": true,
+    "3d_structure_identified": true,
+    "confidence": 95
+  },
+  "manufacturing": {
+    "glass_type": "Clear Tempered",
+    "edge_finish": "K-Edge (All Sides)",
+    "tolerances": "+/- 1.5 mm",
+    "special_notes": [
+      "Panel 2 is a 3D door frame structure",
+      "Door section is recessed (set back) from the frame",
+      "Top section (710mm) is fixed glass above door",
+      "Door (993x2130) has 4 mounting holes",
+      "Frame edge strips on left/right of door opening"
+    ]
+  }
+}

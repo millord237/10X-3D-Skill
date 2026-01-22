@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Panel - Glass-Skill-3 Manufacturing Specifications</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            font-family: Arial, sans-serif;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr 200px;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Left Panel */
+        .left-panel {
+            background: #ffffff;
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 3px solid #1e40af;
+            z-index: 10;
+        }
+        .left-panel h1 {
+            font-size: 18px;
+            color: #1e40af;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1e40af;
+        }
+        .left-panel h2 {
+            font-size: 14px;
+            color: #1e40af;
+            margin: 18px 0 10px;
+            padding-top: 12px;
+            border-top: 2px solid #e5e7eb;
+            font-weight: bold;
+        }
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 13px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .spec-label { color: #4b5563; }
+        .spec-value { font-weight: bold; color: #1e40af; font-family: 'Courier New', monospace; font-size: 14px; }
+        .highlight {
+            background: #fef3c7;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 12px 0;
+            border-left: 4px solid #f59e0b;
+        }
+        .highlight-title {
+            font-weight: bold;
+            color: #92400e;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        /* Center Canvas */
+        .canvas-area {
+            background: #0f172a;
+            position: relative;
+            overflow: hidden;
+        }
+        #canvas-container {
+            width: 100%;
+            height: 100%;
+        }
+        .canvas-hint {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.95);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #374151;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Right Panel */
+        .right-panel {
+            background: #ffffff;
+            padding: 20px;
+            border-left: 3px solid #1e40af;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+        .right-panel h3 {
+            font-size: 16px;
+            color: #1e40af;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1e40af;
+        }
+        .right-panel button {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin: 6px 0;
+            border: 2px solid #1e40af;
+            background: #fff;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #1e40af;
+            transition: all 0.2s;
+        }
+        .right-panel button:hover {
+            background: #1e40af;
+            color: #fff;
+        }
+
+        .legend {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+        }
+        .legend h4 {
+            font-size: 14px;
+            color: #1e40af;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0;
+            font-size: 11px;
+            color: #4b5563;
+        }
+        .legend-color {
+            width: 24px;
+            height: 14px;
+            border-radius: 3px;
+            flex-shrink: 0;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-layout">
+        <!-- LEFT PANEL - Specifications -->
+        <div class="left-panel">
+            <h1>Glass-Skill-3 Specifications</h1>
+
+            <h2>Overall Dimensions</h2>
+            <div class="spec-row">
+                <span class="spec-label">Total Width:</span>
+                <span class="spec-value">2032 mm</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Max Height:</span>
+                <span class="spec-value">2840 mm</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Thickness:</span>
+                <span class="spec-value">4.0 mm</span>
+            </div>
+
+            <h2>Panel 1 (Fixed Glass)</h2>
+            <div class="spec-row">
+                <span class="spec-label">Width:</span>
+                <span class="spec-value">1035 mm</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Height:</span>
+                <span class="spec-value">2835 mm</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Holes:</span>
+                <span class="spec-value">4 (corners)</span>
+            </div>
+
+            <div class="highlight">
+                <div class="highlight-title">PANEL 2 - DOOR FRAME (3D)</div>
+                <div class="spec-row">
+                    <span class="spec-label">Frame Width:</span>
+                    <span class="spec-value">997 mm</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Frame Height:</span>
+                    <span class="spec-value">2840 mm</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Top Fixed Section:</span>
+                    <span class="spec-value" style="color:#059669;">710 mm</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Door Width:</span>
+                    <span class="spec-value" style="color:#ea580c;">993 mm</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Door Height:</span>
+                    <span class="spec-value" style="color:#ea580c;">2130 mm</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Door Holes:</span>
+                    <span class="spec-value">4</span>
+                </div>
+            </div>
+
+            <h2>Manufacturing</h2>
+            <div class="spec-row">
+                <span class="spec-label">Glass Type:</span>
+                <span class="spec-value">Clear Tempered</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Edge Finish:</span>
+                <span class="spec-value">K-Edge (All)</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Tolerances:</span>
+                <span class="spec-value">+/-1.5 mm</span>
+            </div>
+        </div>
+
+        <!-- CENTER - 3D Canvas -->
+        <div class="canvas-area">
+            <div id="canvas-container"></div>
+            <div class="canvas-hint">Drag: Rotate | Scroll: Zoom | Right-drag: Pan</div>
+        </div>
+
+        <!-- RIGHT PANEL - Controls -->
+        <div class="right-panel">
+            <h3>View Controls</h3>
+            <button onclick="setView('front')">Front View</button>
+            <button onclick="setView('top')">Top View</button>
+            <button onclick="setView('side')">Side View</button>
+            <button onclick="setView('iso')">ISO View</button>
+            <button onclick="setView('door')">Door Detail</button>
+            <button onclick="toggleLabels()">Toggle Labels</button>
+
+            <div class="legend">
+                <h4>Legend</h4>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #93c5fd;"></div>
+                    <span>Panel 1 (Fixed)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #60a5fa;"></div>
+                    <span>Frame Top Section</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fcd34d;"></div>
+                    <span>Door (Recessed)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #22c55e;"></div>
+                    <span>Holes</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ef4444;"></div>
+                    <span>Dimension Lines</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Specifications from Glass-Skill-3.jpeg
+        // Panel 1: Fixed glass rectangle
+        // Panel 2: Door frame with recessed door section
+        const specs = {
+            totalWidth: 2032,
+            thickness: 4.0,
+            maxH: 2840,
+            doorRecess: 20, // Depth of door recess in mm
+            panel1: {
+                name: "Panel 1",
+                width: 1035,
+                height: 2835,
+                xOffset: 0,
+                holes: [
+                    { x: 30, y: 30 },
+                    { x: 1005, y: 30 },
+                    { x: 30, y: 2805 },
+                    { x: 1005, y: 2805 }
+                ]
+            },
+            panel2: {
+                name: "Panel 2 - Door Frame",
+                frameWidth: 997,
+                frameHeight: 2840,
+                topSectionHeight: 710,
+                doorWidth: 993,
+                doorHeight: 2130,
+                xOffset: 1035,
+                doorHoles: [
+                    { x: 30, y: 30 },
+                    { x: 963, y: 30 },
+                    { x: 30, y: 2100 },
+                    { x: 963, y: 2100 }
+                ]
+            }
+        };
+
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0f172a);
+
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 20000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+
+        const w = specs.totalWidth;
+        const t = specs.thickness;
+        const maxH = specs.maxH;
+        const recess = specs.doorRecess;
+
+        // Scale factor for labels (reference was 148.4mm)
+        const scaleFactor = w / 148.4;
+
+        // Lighting
+        scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        dirLight.position.set(1000, 1000, 1000);
+        scene.add(dirLight);
+        const backLight = new THREE.DirectionalLight(0xffffff, 0.4);
+        backLight.position.set(-500, 500, -500);
+        scene.add(backLight);
+
+        const mainGroup = new THREE.Group();
+        const labelsGroup = new THREE.Group();
+
+        // Materials
+        const glassMat = new THREE.MeshPhysicalMaterial({
+            color: 0x93c5fd, metalness: 0, roughness: 0.1,
+            transmission: 0.7, transparent: true, opacity: 0.5, side: THREE.DoubleSide
+        });
+        const frameMat = new THREE.MeshPhysicalMaterial({
+            color: 0x60a5fa, metalness: 0, roughness: 0.1,
+            transmission: 0.6, transparent: true, opacity: 0.6, side: THREE.DoubleSide
+        });
+        const doorMat = new THREE.MeshPhysicalMaterial({
+            color: 0xfcd34d, metalness: 0, roughness: 0.1,
+            transmission: 0.5, transparent: true, opacity: 0.7, side: THREE.DoubleSide
+        });
+        const holeMat = new THREE.MeshBasicMaterial({ color: 0x22c55e });
+        const edgeMat = new THREE.LineBasicMaterial({ color: 0x1e40af, linewidth: 2 });
+
+        // ========== PANEL 1 - Fixed Glass Rectangle ==========
+        const p1 = specs.panel1;
+        const p1Geo = new THREE.BoxGeometry(p1.width, p1.height, t);
+        const panel1 = new THREE.Mesh(p1Geo, glassMat);
+        panel1.position.set(-w/2 + p1.width/2, -maxH/2 + p1.height/2, 0);
+        mainGroup.add(panel1);
+
+        // Panel 1 edge outline
+        const p1EdgePoints = [
+            new THREE.Vector3(-w/2, -maxH/2, t/2+1),
+            new THREE.Vector3(-w/2+p1.width, -maxH/2, t/2+1),
+            new THREE.Vector3(-w/2+p1.width, -maxH/2+p1.height, t/2+1),
+            new THREE.Vector3(-w/2, -maxH/2+p1.height, t/2+1),
+            new THREE.Vector3(-w/2, -maxH/2, t/2+1)
+        ];
+        mainGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(p1EdgePoints), edgeMat));
+
+        // Panel 1 holes
+        p1.holes.forEach(hole => {
+            const holeGeo = new THREE.CircleGeometry(15, 16);
+            const holeMesh = new THREE.Mesh(holeGeo, holeMat);
+            holeMesh.position.set(-w/2 + hole.x, -maxH/2 + hole.y, t/2+2);
+            mainGroup.add(holeMesh);
+        });
+
+        // ========== PANEL 2 - Door Frame (3D) ==========
+        const p2 = specs.panel2;
+        const frameX = -w/2 + p2.xOffset;
+
+        // Top fixed section (above door)
+        const topGeo = new THREE.BoxGeometry(p2.frameWidth, p2.topSectionHeight, t);
+        const topSection = new THREE.Mesh(topGeo, frameMat);
+        topSection.position.set(frameX + p2.frameWidth/2, -maxH/2 + p2.doorHeight + p2.topSectionHeight/2, 0);
+        mainGroup.add(topSection);
+
+        // Left frame edge (narrow strip)
+        const leftEdgeWidth = (p2.frameWidth - p2.doorWidth) / 2;
+        if (leftEdgeWidth > 0) {
+            const leftEdgeGeo = new THREE.BoxGeometry(leftEdgeWidth, p2.doorHeight, t);
+            const leftEdge = new THREE.Mesh(leftEdgeGeo, frameMat);
+            leftEdge.position.set(frameX + leftEdgeWidth/2, -maxH/2 + p2.doorHeight/2, 0);
+            mainGroup.add(leftEdge);
+        }
+
+        // Right frame edge (narrow strip)
+        const rightEdgeWidth = p2.frameWidth - p2.doorWidth - leftEdgeWidth;
+        if (rightEdgeWidth > 0) {
+            const rightEdgeGeo = new THREE.BoxGeometry(rightEdgeWidth, p2.doorHeight, t);
+            const rightEdge = new THREE.Mesh(rightEdgeGeo, frameMat);
+            rightEdge.position.set(frameX + p2.frameWidth - rightEdgeWidth/2, -maxH/2 + p2.doorHeight/2, 0);
+            mainGroup.add(rightEdge);
+        }
+
+        // DOOR - Recessed (set back in Z)
+        const doorGeo = new THREE.BoxGeometry(p2.doorWidth, p2.doorHeight, t);
+        const door = new THREE.Mesh(doorGeo, doorMat);
+        door.position.set(frameX + leftEdgeWidth + p2.doorWidth/2, -maxH/2 + p2.doorHeight/2, -recess);
+        mainGroup.add(door);
+
+        // Door outline (at recessed position)
+        const doorEdgePoints = [
+            new THREE.Vector3(frameX + leftEdgeWidth, -maxH/2, -recess + t/2+1),
+            new THREE.Vector3(frameX + leftEdgeWidth + p2.doorWidth, -maxH/2, -recess + t/2+1),
+            new THREE.Vector3(frameX + leftEdgeWidth + p2.doorWidth, -maxH/2 + p2.doorHeight, -recess + t/2+1),
+            new THREE.Vector3(frameX + leftEdgeWidth, -maxH/2 + p2.doorHeight, -recess + t/2+1),
+            new THREE.Vector3(frameX + leftEdgeWidth, -maxH/2, -recess + t/2+1)
+        ];
+        mainGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(doorEdgePoints), new THREE.LineBasicMaterial({ color: 0xf59e0b, linewidth: 2 })));
+
+        // Frame outer outline
+        const frameEdgePoints = [
+            new THREE.Vector3(frameX, -maxH/2, t/2+1),
+            new THREE.Vector3(frameX + p2.frameWidth, -maxH/2, t/2+1),
+            new THREE.Vector3(frameX + p2.frameWidth, -maxH/2 + p2.frameHeight, t/2+1),
+            new THREE.Vector3(frameX, -maxH/2 + p2.frameHeight, t/2+1),
+            new THREE.Vector3(frameX, -maxH/2, t/2+1)
+        ];
+        mainGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(frameEdgePoints), edgeMat));
+
+        // Horizontal line separating top section from door
+        const dividerPoints = [
+            new THREE.Vector3(frameX, -maxH/2 + p2.doorHeight, t/2+1),
+            new THREE.Vector3(frameX + p2.frameWidth, -maxH/2 + p2.doorHeight, t/2+1)
+        ];
+        const dividerMat = new THREE.LineDashedMaterial({ color: 0x8b5cf6, dashSize: 30, gapSize: 15 });
+        const dividerLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints(dividerPoints), dividerMat);
+        dividerLine.computeLineDistances();
+        mainGroup.add(dividerLine);
+
+        // Door holes (on recessed door)
+        p2.doorHoles.forEach(hole => {
+            const holeGeo = new THREE.CircleGeometry(15, 16);
+            const holeMesh = new THREE.Mesh(holeGeo, holeMat);
+            holeMesh.position.set(frameX + leftEdgeWidth + hole.x, -maxH/2 + hole.y, -recess + t/2+2);
+            mainGroup.add(holeMesh);
+        });
+
+        // Connecting edges to show 3D recess
+        const recessEdges = [
+            // Top corners of door opening
+            [new THREE.Vector3(frameX + leftEdgeWidth, -maxH/2 + p2.doorHeight, t/2), new THREE.Vector3(frameX + leftEdgeWidth, -maxH/2 + p2.doorHeight, -recess + t/2)],
+            [new THREE.Vector3(frameX + leftEdgeWidth + p2.doorWidth, -maxH/2 + p2.doorHeight, t/2), new THREE.Vector3(frameX + leftEdgeWidth + p2.doorWidth, -maxH/2 + p2.doorHeight, -recess + t/2)],
+            // Bottom corners
+            [new THREE.Vector3(frameX + leftEdgeWidth, -maxH/2, t/2), new THREE.Vector3(frameX + leftEdgeWidth, -maxH/2, -recess + t/2)],
+            [new THREE.Vector3(frameX + leftEdgeWidth + p2.doorWidth, -maxH/2, t/2), new THREE.Vector3(frameX + leftEdgeWidth + p2.doorWidth, -maxH/2, -recess + t/2)]
+        ];
+        const recessMat = new THREE.LineBasicMaterial({ color: 0x94a3b8 });
+        recessEdges.forEach(edge => {
+            mainGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(edge), recessMat));
+        });
+
+        // ========== LABELS ==========
+
+        function createLabel(text, fontSize = 32, color = '#1e40af', bgColor = 'rgba(255,255,255,0.98)') {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 512;
+            canvas.height = 96;
+
+            ctx.fillStyle = bgColor;
+            ctx.beginPath();
+            ctx.roundRect(4, 4, 504, 88, 8);
+            ctx.fill();
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 4;
+            ctx.stroke();
+
+            ctx.fillStyle = color;
+            ctx.font = `bold ${fontSize}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, 256, 48);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true }));
+            sprite.scale.set(40 * scaleFactor, 7.5 * scaleFactor, 1);
+            return sprite;
+        }
+
+        function createDimensionLine(start, end, labelText, offset, vertical = false, color = '#ef4444') {
+            const group = new THREE.Group();
+            const hexColor = parseInt(color.replace('#', '0x'));
+
+            const p1 = start.clone();
+            const p2 = end.clone();
+            if (vertical) {
+                p1.x += offset;
+                p2.x += offset;
+            } else {
+                p1.y += offset;
+                p2.y += offset;
+            }
+
+            // Extension lines
+            const extMat = new THREE.LineBasicMaterial({ color: hexColor });
+            group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([start, p1]), extMat));
+            group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([end, p2]), extMat));
+
+            // Main dimension line
+            group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([p1, p2]), extMat));
+
+            // Arrowheads
+            const arrowLen = 3 * scaleFactor;
+            const arrowRad = 1.5 * scaleFactor;
+            const coneGeo = new THREE.ConeGeometry(arrowRad, arrowLen, 8);
+            const coneMat = new THREE.MeshBasicMaterial({ color: hexColor });
+
+            const cone1 = new THREE.Mesh(coneGeo, coneMat);
+            cone1.position.copy(p1);
+            if (vertical) cone1.rotation.z = Math.PI;
+            else cone1.rotation.z = -Math.PI/2;
+            group.add(cone1);
+
+            const cone2 = new THREE.Mesh(coneGeo, coneMat);
+            cone2.position.copy(p2);
+            if (vertical) cone2.rotation.z = 0;
+            else cone2.rotation.z = Math.PI/2;
+            group.add(cone2);
+
+            // Label
+            const label = createLabel(labelText, 28, color);
+            const mid = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5);
+            if (vertical) mid.x += 18 * scaleFactor;
+            else mid.y += 8 * scaleFactor;
+            label.position.copy(mid);
+            group.add(label);
+
+            return group;
+        }
+
+        // TOTAL WIDTH - 2032mm
+        labelsGroup.add(createDimensionLine(
+            new THREE.Vector3(-w/2, -maxH/2, t/2+10),
+            new THREE.Vector3(w/2, -maxH/2, t/2+10),
+            '2032 mm (Total)', -250, false, '#ef4444'
+        ));
+
+        // PANEL 1 WIDTH - 1035mm
+        labelsGroup.add(createDimensionLine(
+            new THREE.Vector3(-w/2, -maxH/2, t/2+10),
+            new THREE.Vector3(-w/2 + p1.width, -maxH/2, t/2+10),
+            '1035 mm (P1)', -450, false, '#1e40af'
+        ));
+
+        // PANEL 1 HEIGHT - 2835mm
+        labelsGroup.add(createDimensionLine(
+            new THREE.Vector3(-w/2, -maxH/2, t/2+10),
+            new THREE.Vector3(-w/2, -maxH/2 + p1.height, t/2+10),
+            '2835 mm', -350, true, '#059669'
+        ));
+
+        // FRAME WIDTH - 997mm
+        labelsGroup.add(createDimensionLine(
+            new THREE.Vector3(frameX, -maxH/2 + p2.frameHeight, t/2+10),
+            new THREE.Vector3(frameX + p2.frameWidth, -maxH/2 + p2.frameHeight, t/2+10),
+            '997 mm (Frame)', 200, false, '#1e40af'
+        ));
+
+        // DOOR WIDTH - 993mm
+        labelsGroup.add(createDimensionLine(
+            new THREE.Vector3(frameX + leftEdgeWidth, -maxH/2, -recess + t/2+10),
+            new THREE.Vector3(frameX + leftEdgeWidth + p2.doorWidth, -maxH/2, -recess + t/2+10),
+            '993 mm (Door)', -450, false, '#ea580c'
+        ));
+
+        // DOOR HEIGHT - 2130mm
+        labelsGroup.add(createDimensionLine(
+            new THREE.Vector3(frameX + p2.frameWidth, -maxH/2, t/2+10),
+            new THREE.Vector3(frameX + p2.frameWidth, -maxH/2 + p2.doorHeight, t/2+10),
+            '2130 mm (Door)', 300, true, '#ea580c'
+        ));
+
+        // TOP SECTION HEIGHT - 710mm
+        labelsGroup.add(createDimensionLine(
+            new THREE.Vector3(frameX + p2.frameWidth, -maxH/2 + p2.doorHeight, t/2+10),
+            new THREE.Vector3(frameX + p2.frameWidth, -maxH/2 + p2.frameHeight, t/2+10),
+            '710 mm (Top)', 300, true, '#059669'
+        ));
+
+        // FRAME TOTAL HEIGHT - 2840mm
+        labelsGroup.add(createDimensionLine(
+            new THREE.Vector3(w/2, -maxH/2, t/2+10),
+            new THREE.Vector3(w/2, -maxH/2 + p2.frameHeight, t/2+10),
+            '2840 mm', 500, true, '#059669'
+        ));
+
+        // Panel name labels
+        const p1Label = createLabel('P1 - Fixed', 26, '#1e40af', 'rgba(219,234,254,0.98)');
+        p1Label.position.set(-w/2 + p1.width/2, -maxH/2 + p1.height/2, t/2+50);
+        p1Label.scale.set(30 * scaleFactor, 6 * scaleFactor, 1);
+        labelsGroup.add(p1Label);
+
+        const doorLabel = createLabel('DOOR (Seal Sheet 2)', 26, '#92400e', 'rgba(254,243,199,0.98)');
+        doorLabel.position.set(frameX + leftEdgeWidth + p2.doorWidth/2, -maxH/2 + p2.doorHeight/2, -recess + t/2+50);
+        doorLabel.scale.set(35 * scaleFactor, 6 * scaleFactor, 1);
+        labelsGroup.add(doorLabel);
+
+        const topLabel = createLabel('Top Section', 22, '#1e40af', 'rgba(219,234,254,0.98)');
+        topLabel.position.set(frameX + p2.frameWidth/2, -maxH/2 + p2.doorHeight + p2.topSectionHeight/2, t/2+30);
+        topLabel.scale.set(25 * scaleFactor, 5 * scaleFactor, 1);
+        labelsGroup.add(topLabel);
+
+        mainGroup.add(labelsGroup);
+        scene.add(mainGroup);
+
+        // Grid
+        const grid = new THREE.GridHelper(5000, 50, 0x475569, 0x334155);
+        grid.position.y = -maxH/2 - 200;
+        scene.add(grid);
+
+        // Camera
+        camera.position.set(3500, 2000, 4500);
+        controls.target.set(0, 0, 0);
+        controls.update();
+
+        // View functions
+        function setView(view) {
+            switch(view) {
+                case 'front': camera.position.set(0, 0, 5000); break;
+                case 'top': camera.position.set(0, 5000, 0.1); break;
+                case 'side': camera.position.set(5000, 0, 0); break;
+                case 'door':
+                    camera.position.set(frameX + p2.frameWidth/2 + 1500, -maxH/2 + p2.doorHeight/2, 2000);
+                    controls.target.set(frameX + p2.frameWidth/2, -maxH/2 + p2.doorHeight/2, -recess);
+                    controls.update();
+                    return;
+                default: camera.position.set(3500, 2000, 4500);
+            }
+            controls.target.set(0, 0, 0);
+            controls.update();
+        }
+
+        let labelsVisible = true;
+        function toggleLabels() {
+            labelsVisible = !labelsVisible;
+            labelsGroup.visible = labelsVisible;
+        }
+
+        window.setView = setView;
+        window.toggleLabels = toggleLabels;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>

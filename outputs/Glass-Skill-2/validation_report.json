@@ -1,0 +1,203 @@
+{
+  "document_info": {
+    "timestamp": "2026-01-15T20:52:00.609392",
+    "generator": "Glass Manufacturing Skill v1.0",
+    "format_version": "2.0",
+    "standards": [
+      "EN 12150-1",
+      "ASTM C1048",
+      "ISO 12543"
+    ]
+  },
+  "panel_specifications": {
+    "dimensions": {
+      "width_mm": 2920,
+      "height_mm": 975,
+      "thickness_mm": 4.0,
+      "diagonal_mm": 3078.48
+    },
+    "area": {
+      "mm2": 2847000,
+      "m2": 2.847
+    },
+    "weight_kg": 28.468,
+    "material": {
+      "glass_type": "clear_tempered",
+      "edge_type": "K_edge"
+    }
+  },
+  "tolerances": {
+    "linear_mm": "±1.5",
+    "diagonal_mm": "±3.0",
+    "hole_position_mm": "±1.0",
+    "thickness_mm": "±0.5"
+  },
+  "holes": {
+    "count": 4,
+    "min_edge_distance_required": 25.0,
+    "details": [
+      {
+        "hole_number": 1,
+        "position": {
+          "x": 908,
+          "y": 30
+        },
+        "diameter": 8,
+        "edge_distances": {
+          "left": 904.0,
+          "right": 2008.0,
+          "bottom": 26.0,
+          "top": 941.0,
+          "minimum": 26.0
+        },
+        "min_required_edge": 25.0,
+        "valid": true
+      },
+      {
+        "hole_number": 2,
+        "position": {
+          "x": 1869,
+          "y": 30
+        },
+        "diameter": 8,
+        "edge_distances": {
+          "left": 1865.0,
+          "right": 1047.0,
+          "bottom": 26.0,
+          "top": 941.0,
+          "minimum": 26.0
+        },
+        "min_required_edge": 25.0,
+        "valid": true
+      },
+      {
+        "hole_number": 3,
+        "position": {
+          "x": 1929,
+          "y": 30
+        },
+        "diameter": 8,
+        "edge_distances": {
+          "left": 1925.0,
+          "right": 987.0,
+          "bottom": 26.0,
+          "top": 941.0,
+          "minimum": 26.0
+        },
+        "min_required_edge": 25.0,
+        "valid": true
+      },
+      {
+        "hole_number": 4,
+        "position": {
+          "x": 2890,
+          "y": 30
+        },
+        "diameter": 8,
+        "edge_distances": {
+          "left": 2886.0,
+          "right": 26.0,
+          "bottom": 26.0,
+          "top": 941.0,
+          "minimum": 26.0
+        },
+        "min_required_edge": 25.0,
+        "valid": true
+      }
+    ]
+  },
+  "sections": {
+    "count": 3,
+    "details": [
+      {
+        "name": "Panel 1",
+        "type": "door",
+        "width": 878,
+        "height": 975,
+        "height_left": 975,
+        "height_right": 975,
+        "x_offset": 0,
+        "has_notch": true,
+        "notch_depth": 30,
+        "notch_height": 60,
+        "notch_position": "bottom_left",
+        "hole_count": 0,
+        "is_tapered": false,
+        "taper_angle": 0,
+        "notes": "Door panel (leftmost) - 878mm width calculated from total 2920 - 1021 - 1021"
+      },
+      {
+        "name": "Panel 2",
+        "type": "panel",
+        "width": 1021,
+        "height": 975,
+        "height_left": 975,
+        "height_right": 975,
+        "x_offset": 878,
+        "has_notch": false,
+        "hole_count": 2,
+        "hole_diameter": 8,
+        "hole_y": 30,
+        "hole_positions": "left and right edges at bottom",
+        "is_tapered": false,
+        "taper_angle": 0,
+        "notes": "Fixed panel - 1021mm width read directly from image"
+      },
+      {
+        "name": "Panel 3",
+        "type": "panel",
+        "width": 1021,
+        "height": 975,
+        "height_left": 975,
+        "height_right": 975,
+        "x_offset": 1899,
+        "has_notch": false,
+        "hole_count": 2,
+        "hole_diameter": 8,
+        "hole_y": 30,
+        "hole_positions": "left and right edges at bottom",
+        "is_tapered": false,
+        "taper_angle": 0,
+        "notes": "Fixed panel - 1021mm width read directly from image"
+      }
+    ]
+  },
+  "validation": {
+    "status": "validated",
+    "checks": {
+      "dimensions_valid": true,
+      "aspect_ratio_valid": true,
+      "holes_valid": true,
+      "thickness_adequate": true
+    },
+    "notes": [
+      "3-panel assembly extracted from Glass-Skill-2 sketch",
+      "Image was rotated 90 degrees CCW",
+      "Total width: 878 + 1021 + 1021 = 2920mm (matches image)",
+      "Uniform height of 975mm across all panels",
+      "Panel 1 (Door) has small notch at bottom left",
+      "Panels 2 and 3 have mounting holes at bottom",
+      "0 markers in image indicate zero taper (rectangular panels)"
+    ]
+  },
+  "manufacturing_summary": {
+    "cutting": {
+      "method": "CNC or manual score and break",
+      "stock_size_required": "2970mm x 1025mm minimum"
+    },
+    "drilling": {
+      "required": true,
+      "tool": "Diamond core drill",
+      "coolant": "Water (continuous)",
+      "back_support": "Required"
+    },
+    "edge_processing": {
+      "type": "K_edge",
+      "all_edges": true
+    },
+    "heat_treatment": {
+      "required": true,
+      "type": "Full temper"
+    }
+  }
+}

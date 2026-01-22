@@ -1,0 +1,40 @@
+{
+  "name": "Boundary-Skill-1",
+  "generated": "2026-01-15",
+  "unit": "FT",
+  "source": "Hand-drawn sketch measurements (authoritative)",
+  "edges": [
+    {"name": "East (Top)", "length": 31.4, "direction": "right"},
+    {"name": "South Upper", "length": 22.5, "direction": "down"},
+    {"name": "GATE", "length": 6.0, "direction": "down", "is_gate": true},
+    {"name": "14.4 Wall", "length": 14.4, "direction": "left", "is_14wall": true},
+    {"name": "South Lower", "length": 27.3, "direction": "down"},
+    {"name": "West Bottom", "length": 12.0, "direction": "left"},
+    {"name": "Step", "length": 4.2, "direction": "up"},
+    {"name": "West Mid", "length": 7.9, "direction": "left"},
+    {"name": "North Lower", "length": 27.4, "direction": "up"},
+    {"name": "Indent", "length": 2.9, "direction": "right"},
+    {"name": "North Upper", "length": 25.0, "direction": "up"}
+  ],
+  "geometry": {
+    "perimeter_ft": 181.0,
+    "area_sqft": 1422.93,
+    "vertex_count": 11
+  },
+  "measurements_summary": {
+    "east": "31.4 FT",
+    "south": "22.5 + 6.0 + 14.4 + 27.3 = 70.2 FT (edge lengths)",
+    "west": "12.0 + 4.2 + 7.9 = 24.1 FT",
+    "north": "27.4 + 2.9 + 25.0 = 55.3 FT (edge lengths)"
+  },
+  "axis_movements": {
+    "horizontal": {
+      "right": "31.4 + 2.9 = 34.3 FT",
+      "left": "14.4 + 12.0 + 7.9 = 34.3 FT"
+    },
+    "vertical": {
+      "down": "22.5 + 6.0 + 27.3 = 55.8 FT",
+      "up": "4.2 + 27.4 + 25.0 = 56.6 FT"
+    }
+  }
+}

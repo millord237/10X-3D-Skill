@@ -1,0 +1,306 @@
+{
+  "document_info": {
+    "timestamp": "2026-01-15T10:30:00.000000",
+    "generator": "Glass Manufacturing Skill v2.0",
+    "format_version": "2.1",
+    "standards": [
+      "EN 12150-1",
+      "ASTM C1048",
+      "ISO 12543"
+    ],
+    "calculation_libraries": {
+      "scipy": "Optimization, linear algebra (linalg), statistics",
+      "shapely": "Polygon geometry, area calculation, validation",
+      "numpy": "Array operations, perimeter sum, coordinate math"
+    }
+  },
+  "panel_specifications": {
+    "dimensions": {
+      "width_mm": 148.4,
+      "height_mm": 91.3,
+      "thickness_mm": 4.0,
+      "diagonal_mm": 174.29,
+      "diagonal_calculation": "scipy.linalg.norm([148.4, 91.3])"
+    },
+    "calculated_metrics": {
+      "area_mm2": 13563.76,
+      "area_m2": 0.0136,
+      "area_method": "Shapely Polygon.area",
+      "perimeter_mm": 479.4,
+      "perimeter_method": "numpy.sum(edge_lengths)",
+      "volume_mm3": 54255.04,
+      "volume_method": "area * thickness"
+    },
+    "weight_kg": 0.136,
+    "weight_calculation": "volume_m3 * density_kg_m3 (2500)",
+    "material": {
+      "glass_type": "clear_tempered",
+      "edge_type": "K_edge",
+      "density_kg_m3": 2500
+    }
+  },
+  "tolerances": {
+    "linear_mm": "+/-1.5",
+    "diagonal_mm": "+/-3.0",
+    "hole_position_mm": "+/-1.0",
+    "thickness_mm": "+/-0.5",
+    "edge_distance_min_mm": 20.0
+  },
+  "holes": {
+    "count": 6,
+    "diameter_mm": 8.0,
+    "min_edge_distance_required": 20.0,
+    "details": [
+      {
+        "hole_number": 1,
+        "label": "H1",
+        "panel": "Panel 2",
+        "position": {
+          "x": 56.0,
+          "y": 37.4
+        },
+        "diameter": 8.0,
+        "edge_distances": {
+          "left": 20.0,
+          "right": 92.4,
+          "bottom": 37.4,
+          "top": 54.0,
+          "minimum": 20.0
+        },
+        "min_required_edge": 20.0,
+        "valid": true
+      },
+      {
+        "hole_number": 2,
+        "label": "H2",
+        "panel": "Panel 2",
+        "position": {
+          "x": 66.0,
+          "y": 37.4
+        },
+        "diameter": 8.0,
+        "edge_distances": {
+          "left": 30.0,
+          "right": 82.4,
+          "bottom": 37.4,
+          "top": 54.0,
+          "minimum": 30.0
+        },
+        "min_required_edge": 20.0,
+        "valid": true
+      },
+      {
+        "hole_number": 3,
+        "label": "H3",
+        "panel": "Panel 3",
+        "position": {
+          "x": 77.4,
+          "y": 37.4
+        },
+        "diameter": 8.0,
+        "edge_distances": {
+          "left": 4.0,
+          "right": 71.0,
+          "bottom": 37.4,
+          "top": 53.7,
+          "minimum": 4.0
+        },
+        "min_required_edge": 20.0,
+        "valid": false,
+        "note": "Left edge distance below minimum"
+      },
+      {
+        "hole_number": 4,
+        "label": "H4",
+        "panel": "Panel 3",
+        "position": {
+          "x": 107.4,
+          "y": 37.4
+        },
+        "diameter": 8.0,
+        "edge_distances": {
+          "left": 34.0,
+          "right": 41.0,
+          "bottom": 37.4,
+          "top": 53.7,
+          "minimum": 34.0
+        },
+        "min_required_edge": 20.0,
+        "valid": true
+      },
+      {
+        "hole_number": 5,
+        "label": "H5",
+        "panel": "Panel 4",
+        "position": {
+          "x": 114.8,
+          "y": 37.4
+        },
+        "diameter": 8.0,
+        "edge_distances": {
+          "left": 4.0,
+          "right": 33.6,
+          "bottom": 37.4,
+          "top": 53.9,
+          "minimum": 4.0
+        },
+        "min_required_edge": 20.0,
+        "valid": false,
+        "note": "Left edge distance below minimum"
+      },
+      {
+        "hole_number": 6,
+        "label": "H6",
+        "panel": "Panel 4",
+        "position": {
+          "x": 144.8,
+          "y": 37.4
+        },
+        "diameter": 8.0,
+        "edge_distances": {
+          "left": 34.0,
+          "right": 3.6,
+          "bottom": 37.4,
+          "top": 53.9,
+          "minimum": 3.6
+        },
+        "min_required_edge": 20.0,
+        "valid": false,
+        "note": "Right edge distance below minimum"
+      }
+    ]
+  },
+  "sections": {
+    "count": 4,
+    "width_verification": {
+      "formula": "36.2 + 37.4 + 37.4 + 37.4",
+      "result": 148.4,
+      "method": "numpy.sum([36.2, 37.4, 37.4, 37.4])",
+      "status": "verified"
+    },
+    "details": [
+      {
+        "name": "Panel 1",
+        "type": "door",
+        "width_bottom": 36.0,
+        "width_top": 36.2,
+        "width": 36.2,
+        "height": 91.3,
+        "height_left": 91.3,
+        "height_right": 91.4,
+        "x_offset": 0,
+        "y_offset": 0,
+        "has_notch": false,
+        "hole_count": 0,
+        "is_tapered": true,
+        "taper_start_height": 84.0,
+        "tapered_section_height": 7.3,
+        "straight_section_height": 84.0,
+        "area_mm2": 3299.46,
+        "area_method": "Shapely Polygon (trapezoid)",
+        "notes": "Panel 1 (Door) - TAPERED: 36mm at bottom, 36.2mm at top. Straight: 84mm, Tapered: 7.3mm. NO holes."
+      },
+      {
+        "name": "Panel 2",
+        "type": "panel",
+        "width": 37.4,
+        "height": 91.4,
+        "height_left": 91.4,
+        "height_right": 91.0,
+        "x_offset": 36.0,
+        "y_offset": 0,
+        "has_notch": false,
+        "hole_count": 2,
+        "hole_positions": "H1, H2 at bottom edges for mounting/locking",
+        "area_mm2": 3412.88,
+        "area_method": "Shapely Polygon (trapezoid)",
+        "notes": "Panel 2 - Left: 91.4mm, Right: 91.0mm"
+      },
+      {
+        "name": "Panel 3",
+        "type": "panel",
+        "width": 37.4,
+        "height": 91.1,
+        "height_left": 91.0,
+        "height_right": 91.1,
+        "x_offset": 73.4,
+        "y_offset": 0,
+        "has_notch": false,
+        "hole_count": 2,
+        "hole_positions": "H3, H4 at bottom edges for mounting/locking",
+        "area_mm2": 3403.27,
+        "area_method": "Shapely Polygon (trapezoid)",
+        "notes": "Panel 3 - Left: 91.0mm, Right: 91.1mm"
+      },
+      {
+        "name": "Panel 4",
+        "type": "panel",
+        "width": 37.4,
+        "height": 91.3,
+        "height_left": 91.1,
+        "height_right": 91.3,
+        "x_offset": 110.8,
+        "y_offset": 0,
+        "has_notch": false,
+        "hole_count": 2,
+        "hole_positions": "H5, H6 at bottom edges for mounting/locking",
+        "area_mm2": 3410.88,
+        "area_method": "Shapely Polygon (trapezoid)",
+        "notes": "Panel 4 - Left: 91.1mm, Right: 91.3mm (right edge of glass)"
+      }
+    ]
+  },
+  "validation": {
+    "status": "validated_with_warnings",
+    "confidence": 95.0,
+    "checks": {
+      "dimensions_valid": true,
+      "aspect_ratio_valid": true,
+      "width_sum_valid": true,
+      "holes_valid": false,
+      "thickness_adequate": true,
+      "edge_distances_valid": false
+    },
+    "warnings": [
+      "Holes H3, H5, H6 have edge distances below 20mm minimum",
+      "Hole positions are approximate - verify with source image"
+    ],
+    "notes": [
+      "Total width: 148.4mm (verified with NumPy sum)",
+      "Panel 1 (Door): TAPERED - 36mm at bottom, 36.2mm at top. NO holes.",
+      "Taper: Straight (90-degree) up to 84mm height, then slight outward slant",
+      "84< symbol = reference point where taper begins (NOT a notch)",
+      "Panels 2-4: 37.4mm wide each (rectangular, not tapered)",
+      "Width verification: 36.2 + 37.4 + 37.4 + 37.4 = 148.4mm [OK]",
+      "Holes: 6 total - at left and right bottom edges of panels 2-4",
+      "Area calculated using Shapely Polygon geometry",
+      "Diagonal calculated using SciPy linear algebra (linalg.norm)"
+    ]
+  },
+  "manufacturing_summary": {
+    "cutting": {
+      "method": "CNC or manual score and break",
+      "stock_size_required": "198.4mm x 141.4mm minimum"
+    },
+    "drilling": {
+      "required": true,
+      "tool": "Diamond core drill",
+      "coolant": "Water (continuous)",
+      "back_support": "Required",
+      "hole_diameter": 8.0
+    },
+    "edge_processing": {
+      "type": "K_edge",
+      "all_edges": true
+    },
+    "heat_treatment": {
+      "required": true,
+      "type": "Full temper"
+    },
+    "quality_control": {
+      "visual_inspection": "Required",
+      "dimensional_check": "Required",
+      "stress_pattern_check": "Required for tempered glass"
+    }
+  }
+}

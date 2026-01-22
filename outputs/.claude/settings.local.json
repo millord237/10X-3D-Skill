@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"Test-Path ''C:\\\\Users\\\\Anit\\\\Downloads\\\\OA-3D-Skill\\\\outputs\\\\Boundary-Skill-1\\\\boundary_calculator.py''\")",
+      "Bash(powershell -Command \"Test-Path ''C:\\\\Users\\\\Anit\\\\Downloads\\\\OA-3D-Skill\\\\.git''\")",
+      "Bash(powershell:*)",
+      "Bash(dir /s /b /ad)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Anit\\\\Downloads\\\\OA-3D-Skill\" -Recurse -Name)",
+      "Bash(Select-Object -First 60)"
+    ]
+  }
+}

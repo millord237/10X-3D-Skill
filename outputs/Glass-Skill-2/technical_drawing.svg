@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1400" viewBox="0 0 1800 1400">
+    <defs>
+        <!-- Arrow marker for dimension lines -->
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#333"/>
+        </marker>
+        <marker id="arrow-start" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M9,0 L9,6 L0,3 z" fill="#333"/>
+        </marker>
+        <!-- Grid pattern -->
+        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e0e0e0" stroke-width="0.5"/>
+        </pattern>
+        <!-- Hatch pattern for section -->
+        <pattern id="hatch" patternUnits="userSpaceOnUse" width="4" height="4">
+            <path d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2" stroke="#666" stroke-width="0.5"/>
+        </pattern>
+    </defs>
+
+    <!-- Background -->
+    <rect width="1800" height="1400" fill="#fafafa"/>
+
+    <!-- Drawing border -->
+    <rect x="10" y="10" width="1780" height="1380" fill="none" stroke="#333" stroke-width="2"/>
+
+    <!-- Grid (optional background) -->
+    <rect x="10" y="10" width="1780" height="1200" fill="url(#grid)" opacity="0.5"/>
+
+    <!-- ============================================== -->
+    <!-- FRONT VIEW -->
+    <!-- ============================================== -->
+    <g id="front-view">
+        <text x="605.0" y="125" text-anchor="middle" font-family="Arial" font-size="24" font-weight="bold" fill="#333">FRONT VIEW</text>
+
+        <!-- Panel outline -->
+        <rect x="150" y="150" width="909.9999999999999" height="303.8527397260274"
+              fill="none" stroke="#000" stroke-width="3"/>
+
+        <!-- Panel fill (glass appearance) -->
+        <rect x="150" y="150" width="909.9999999999999" height="303.8527397260274"
+              fill="#e3f2fd" fill-opacity="0.3"/>
+
+        <!-- Section 1 labels -->
+        <text x="286.81164383561645" y="95" text-anchor="middle"
+              font-family="Arial" font-size="20" font-weight="bold" fill="#1565c0">Panel 1</text>
+        <text x="286.81164383561645" y="115" text-anchor="middle"
+              font-family="Arial" font-size="16" fill="#666">(DOOR)</text>
+
+        <text x="286.81164383561645" y="528.8527397260274" text-anchor="middle"
+              font-family="Arial" font-size="18" font-weight="bold" fill="#1976d2">878mm</text>
+
+        <text x="160.0" y="175" font-family="Arial" font-size="16" font-weight="bold" fill="#2e7d32">975mm</text>
+        <text x="413.62328767123284" y="175" text-anchor="end" font-family="Arial" font-size="16" font-weight="bold" fill="#2e7d32">975mm</text>
+
+        <!-- Section divider 1 -->
+        <line x1="423.62328767123284" y1="150" x2="423.62328767123284" y2="453.8527397260274"
+              stroke="#666" stroke-width="1" stroke-dasharray="5,3"/>
+
+        <!-- Section 2 labels -->
+        <text x="582.7174657534247" y="95" text-anchor="middle"
+              font-family="Arial" font-size="20" font-weight="bold" fill="#1565c0">Panel 2</text>
+        <text x="582.7174657534247" y="115" text-anchor="middle"
+              font-family="Arial" font-size="16" fill="#666">(PANEL)</text>
+
+        <text x="582.7174657534247" y="528.8527397260274" text-anchor="middle"
+              font-family="Arial" font-size="18" font-weight="bold" fill="#1976d2">1021mm</text>
+
+        <text x="433.62328767123284" y="175" font-family="Arial" font-size="16" font-weight="bold" fill="#2e7d32">975mm</text>
+        <text x="731.8116438356163" y="175" text-anchor="end" font-family="Arial" font-size="16" font-weight="bold" fill="#2e7d32">975mm</text>
+
+        <!-- Section divider 2 -->
+        <line x1="741.8116438356163" y1="150" x2="741.8116438356163" y2="453.8527397260274"
+              stroke="#666" stroke-width="1" stroke-dasharray="5,3"/>
+
+        <!-- Section 3 labels -->
+        <text x="900.9058219178081" y="95" text-anchor="middle"
+              font-family="Arial" font-size="20" font-weight="bold" fill="#1565c0">Panel 3</text>
+        <text x="900.9058219178081" y="115" text-anchor="middle"
+              font-family="Arial" font-size="16" fill="#666">(PANEL)</text>
+
+        <text x="900.9058219178081" y="528.8527397260274" text-anchor="middle"
+              font-family="Arial" font-size="18" font-weight="bold" fill="#1976d2">1021mm</text>
+
+        <text x="751.8116438356163" y="175" font-family="Arial" font-size="16" font-weight="bold" fill="#2e7d32">975mm</text>
+        <text x="1050.0" y="175" text-anchor="end" font-family="Arial" font-size="16" font-weight="bold" fill="#2e7d32">975mm</text>
+
+        <!-- Hole 1 -->
+        <circle cx="432.97260273972597" cy="444.50342465753425" r="1.2465753424657533" fill="none" stroke="#d32f2f" stroke-width="1.5"/>
+        <line x1="431.7260273972602" y1="444.50342465753425" x2="434.2191780821917" y2="444.50342465753425" stroke="#d32f2f" stroke-width="0.5"/>
+        <line x1="432.97260273972597" y1="443.2568493150685" x2="432.97260273972597" y2="445.75" stroke="#d32f2f" stroke-width="0.5"/>
+
+        <!-- Hole 2 -->
+        <circle cx="732.4623287671233" cy="444.50342465753425" r="1.2465753424657533" fill="none" stroke="#d32f2f" stroke-width="1.5"/>
+        <line x1="731.2157534246575" y1="444.50342465753425" x2="733.7089041095891" y2="444.50342465753425" stroke="#d32f2f" stroke-width="0.5"/>
+        <line x1="732.4623287671233" y1="443.2568493150685" x2="732.4623287671233" y2="445.75" stroke="#d32f2f" stroke-width="0.5"/>
+
+        <!-- Hole 3 -->
+        <circle cx="751.1609589041095" cy="444.50342465753425" r="1.2465753424657533" fill="none" stroke="#d32f2f" stroke-width="1.5"/>
+        <line x1="749.9143835616437" y1="444.50342465753425" x2="752.4075342465753" y2="444.50342465753425" stroke="#d32f2f" stroke-width="0.5"/>
+        <line x1="751.1609589041095" y1="443.2568493150685" x2="751.1609589041095" y2="445.75" stroke="#d32f2f" stroke-width="0.5"/>
+
+        <!-- Hole 4 -->
+        <circle cx="1050.6506849315067" cy="444.50342465753425" r="1.2465753424657533" fill="none" stroke="#d32f2f" stroke-width="1.5"/>
+        <line x1="1049.404109589041" y1="444.50342465753425" x2="1051.8972602739725" y2="444.50342465753425" stroke="#d32f2f" stroke-width="0.5"/>
+        <line x1="1050.6506849315067" y1="443.2568493150685" x2="1050.6506849315067" y2="445.75" stroke="#d32f2f" stroke-width="0.5"/>
+
+        <!-- Width dimension -->
+        <line x1="150" y1="493.8527397260274" x2="1060.0" y2="493.8527397260274"
+              stroke="#333" stroke-width="2" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+        <line x1="150" y1="463.8527397260274" x2="150" y2="508.8527397260274"
+              stroke="#333" stroke-width="1"/>
+        <line x1="1060.0" y1="463.8527397260274" x2="1060.0" y2="508.8527397260274"
+              stroke="#333" stroke-width="1"/>
+        <text x="605.0" y="523.8527397260274" text-anchor="middle"
+              font-family="Arial" font-size="22" font-weight="bold" fill="#333">2920 mm (TOTAL WIDTH)</text>
+
+        <!-- Height dimension -->
+        <line x1="110" y1="150" x2="110" y2="453.8527397260274"
+              stroke="#333" stroke-width="2" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+        <line x1="95" y1="150" x2="140" y2="150"
+              stroke="#333" stroke-width="1"/>
+        <line x1="95" y1="453.8527397260274" x2="140" y2="453.8527397260274"
+              stroke="#333" stroke-width="1"/>
+        <text x="100" y="301.9263698630137" text-anchor="middle"
+              font-family="Arial" font-size="22" font-weight="bold" fill="#333" transform="rotate(-90 100 301.9263698630137)">975 mm</text>
+    </g>
+
+    <!-- ============================================== -->
+    <!-- SIDE VIEW (SECTION) -->
+    <!-- ============================================== -->
+    <g id="side-view">
+        <text x="1143.1164383561643" y="125" text-anchor="middle" font-family="Arial" font-size="24" font-weight="bold" fill="#333">SIDE VIEW</text>
+
+        <!-- Panel cross-section -->
+        <rect x="1140.0" y="150" width="6.232876712328767" height="303.8527397260274"
+              fill="url(#hatch)" stroke="#000" stroke-width="3"/>
+
+        <!-- Thickness dimension -->
+        <line x1="1140.0" y1="493.8527397260274" x2="1146.2328767123288" y2="493.8527397260274"
+              stroke="#333" stroke-width="2" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+        <text x="1143.1164383561643" y="523.8527397260274" text-anchor="middle"
+              font-family="Arial" font-size="20" font-weight="bold" fill="#333">4.0 mm (THICKNESS)</text>
+    </g>
+
+    <!-- ============================================== -->
+    <!-- HOLE DETAIL TABLE -->
+    <!-- ============================================== -->
+    <g id="hole-table" transform="translate(1206.2328767123288, 150)">
+        <text x="0" y="0" font-family="Arial" font-size="20" font-weight="bold" fill="#333">HOLE SCHEDULE</text>
+        <line x1="0" y1="8" x2="280" y2="8" stroke="#333" stroke-width="2"/>
+
+        <!-- Table header -->
+        <text x="10" y="40" font-family="Arial" font-size="16" font-weight="bold" fill="#333">#</text>
+        <text x="40" y="40" font-family="Arial" font-size="16" font-weight="bold" fill="#333">X (mm)</text>
+        <text x="120" y="40" font-family="Arial" font-size="16" font-weight="bold" fill="#333">Y (mm)</text>
+        <text x="200" y="40" font-family="Arial" font-size="16" font-weight="bold" fill="#333">Ø (mm)</text>
+        <line x1="0" y1="50" x2="280" y2="50" stroke="#333" stroke-width="1"/>
+
+        <text x="10" y="75" font-family="Arial" font-size="16" fill="#333">1</text>
+        <text x="40" y="75" font-family="Arial" font-size="16" fill="#333">908.0</text>
+        <text x="120" y="75" font-family="Arial" font-size="16" fill="#333">30.0</text>
+        <text x="200" y="75" font-family="Arial" font-size="16" font-weight="bold" fill="#d32f2f">8.0</text>
+
+        <text x="10" y="103" font-family="Arial" font-size="16" fill="#333">2</text>
+        <text x="40" y="103" font-family="Arial" font-size="16" fill="#333">1869.0</text>
+        <text x="120" y="103" font-family="Arial" font-size="16" fill="#333">30.0</text>
+        <text x="200" y="103" font-family="Arial" font-size="16" font-weight="bold" fill="#d32f2f">8.0</text>
+
+        <text x="10" y="131" font-family="Arial" font-size="16" fill="#333">3</text>
+        <text x="40" y="131" font-family="Arial" font-size="16" fill="#333">1929.0</text>
+        <text x="120" y="131" font-family="Arial" font-size="16" fill="#333">30.0</text>
+        <text x="200" y="131" font-family="Arial" font-size="16" font-weight="bold" fill="#d32f2f">8.0</text>
+
+        <text x="10" y="159" font-family="Arial" font-size="16" fill="#333">4</text>
+        <text x="40" y="159" font-family="Arial" font-size="16" fill="#333">2890.0</text>
+        <text x="120" y="159" font-family="Arial" font-size="16" fill="#333">30.0</text>
+        <text x="200" y="159" font-family="Arial" font-size="16" font-weight="bold" fill="#d32f2f">8.0</text>
+
+    </g>
+
+    <!-- ============================================== -->
+    <!-- SECTION SCHEDULE TABLE -->
+    <!-- ============================================== -->
+    <g id="section-table" transform="translate(1206.2328767123288, 462)">
+        <text x="0" y="0" font-family="Arial" font-size="20" font-weight="bold" fill="#1565c0">SECTION SCHEDULE</text>
+        <line x1="0" y1="8" x2="420" y2="8" stroke="#1565c0" stroke-width="2"/>
+
+        <!-- Table header -->
+        <text x="10" y="40" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Name</text>
+        <text x="80" y="40" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Type</text>
+        <text x="140" y="40" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Width</text>
+        <text x="220" y="40" font-family="Arial" font-size="14" font-weight="bold" fill="#333">H-Left</text>
+        <text x="290" y="40" font-family="Arial" font-size="14" font-weight="bold" fill="#333">H-Right</text>
+        <text x="360" y="40" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Taper</text>
+        <line x1="0" y1="50" x2="420" y2="50" stroke="#333" stroke-width="1"/>
+
+        <text x="10" y="75" font-family="Arial" font-size="14" fill="#333">Panel 1</text>
+        <text x="80" y="75" font-family="Arial" font-size="14" fill="#666">door</text>
+        <text x="140" y="75" font-family="Arial" font-size="14" font-weight="bold" fill="#1976d2">878</text>
+        <text x="220" y="75" font-family="Arial" font-size="14" font-weight="bold" fill="#2e7d32">975</text>
+        <text x="290" y="75" font-family="Arial" font-size="14" font-weight="bold" fill="#2e7d32">975</text>
+        <text x="360" y="75" font-family="Arial" font-size="14" fill="#ff9800">-</text>
+
+        <text x="10" y="103" font-family="Arial" font-size="14" fill="#333">Panel 2</text>
+        <text x="80" y="103" font-family="Arial" font-size="14" fill="#666">panel</text>
+        <text x="140" y="103" font-family="Arial" font-size="14" font-weight="bold" fill="#1976d2">1021</text>
+        <text x="220" y="103" font-family="Arial" font-size="14" font-weight="bold" fill="#2e7d32">975</text>
+        <text x="290" y="103" font-family="Arial" font-size="14" font-weight="bold" fill="#2e7d32">975</text>
+        <text x="360" y="103" font-family="Arial" font-size="14" fill="#ff9800">-</text>
+
+        <text x="10" y="131" font-family="Arial" font-size="14" fill="#333">Panel 3</text>
+        <text x="80" y="131" font-family="Arial" font-size="14" fill="#666">panel</text>
+        <text x="140" y="131" font-family="Arial" font-size="14" font-weight="bold" fill="#1976d2">1021</text>
+        <text x="220" y="131" font-family="Arial" font-size="14" font-weight="bold" fill="#2e7d32">975</text>
+        <text x="290" y="131" font-family="Arial" font-size="14" font-weight="bold" fill="#2e7d32">975</text>
+        <text x="360" y="131" font-family="Arial" font-size="14" fill="#ff9800">-</text>
+
+    </g>
+
+    <!-- ============================================== -->
+    <!-- TITLE BLOCK -->
+    <!-- ============================================== -->
+
+    <g id="title-block">
+        <rect x="10" y="1210" width="1780" height="180" fill="#fff" stroke="#333" stroke-width="3"/>
+
+        <!-- Dividers -->
+        <line x1="450" y1="1210" x2="450" y2="1390" stroke="#333" stroke-width="1"/>
+        <line x1="900" y1="1210" x2="900" y2="1390" stroke="#333" stroke-width="1"/>
+        <line x1="1350" y1="1210" x2="1350" y2="1390" stroke="#333" stroke-width="1"/>
+        <line x1="10" y1="1290" x2="450" y2="1290" stroke="#333" stroke-width="0.5"/>
+
+        <!-- Title -->
+        <text x="230" y="1255" text-anchor="middle" font-family="Arial" font-size="32" font-weight="bold" fill="#333">GLASS PANEL</text>
+        <text x="230" y="1282" text-anchor="middle" font-family="Arial" font-size="18" fill="#666">Technical Drawing</text>
+
+        <!-- Project info -->
+        <text x="30" y="1320" font-family="Arial" font-size="16" fill="#666">Drawing No:</text>
+        <text x="150" y="1320" font-family="Arial" font-size="16" font-weight="bold" fill="#333">GP-001</text>
+        <text x="30" y="1350" font-family="Arial" font-size="16" fill="#666">Date:</text>
+        <text x="150" y="1350" font-family="Arial" font-size="16" fill="#333">2026-01-15</text>
+
+        <!-- Specifications -->
+        <text x="470" y="1245" font-family="Arial" font-size="18" font-weight="bold" fill="#333">SPECIFICATIONS</text>
+        <text x="470" y="1275" font-family="Arial" font-size="16" fill="#666">Dimensions:</text>
+        <text x="600" y="1275" font-family="Arial" font-size="16" font-weight="bold" fill="#333">2920 x 975 x 4.0 mm</text>
+        <text x="470" y="1300" font-family="Arial" font-size="16" fill="#666">Glass Type:</text>
+        <text x="600" y="1300" font-family="Arial" font-size="16" fill="#333">Clear Tempered</text>
+        <text x="470" y="1325" font-family="Arial" font-size="16" fill="#666">Edge:</text>
+        <text x="600" y="1325" font-family="Arial" font-size="16" fill="#333">K Edge</text>
+        <text x="470" y="1350" font-family="Arial" font-size="16" fill="#666">Weight:</text>
+        <text x="600" y="1350" font-family="Arial" font-size="16" font-weight="bold" fill="#333">28.47 kg</text>
+
+        <!-- Tolerances (calculated based on glass thickness) -->
+        <text x="920" y="1245" font-family="Arial" font-size="18" font-weight="bold" fill="#333">TOLERANCES</text>
+        <text x="920" y="1275" font-family="Arial" font-size="16" fill="#666">Linear:</text>
+        <text x="1050" y="1275" font-family="Arial" font-size="16" font-weight="bold" fill="#333">+/-1.5 mm</text>
+        <text x="920" y="1300" font-family="Arial" font-size="16" fill="#666">Diagonal:</text>
+        <text x="1050" y="1300" font-family="Arial" font-size="16" font-weight="bold" fill="#333">+/-3.0 mm</text>
+        <text x="920" y="1325" font-family="Arial" font-size="16" fill="#666">Holes:</text>
+        <text x="1050" y="1325" font-family="Arial" font-size="16" font-weight="bold" fill="#333">+/-1.0 mm</text>
+        <text x="920" y="1350" font-family="Arial" font-size="16" fill="#666">Thickness:</text>
+        <text x="1050" y="1350" font-family="Arial" font-size="16" font-weight="bold" fill="#333">+/-0.5 mm</text>
+
+        <!-- Approval -->
+        <text x="1370" y="1245" font-family="Arial" font-size="18" font-weight="bold" fill="#333">APPROVAL</text>
+        <text x="1370" y="1280" font-family="Arial" font-size="14" fill="#666">Drawn:</text>
+        <line x1="1440" y1="1280" x2="1680" y2="1280" stroke="#ccc" stroke-width="1"/>
+        <text x="1370" y="1310" font-family="Arial" font-size="14" fill="#666">Checked:</text>
+        <line x1="1450" y1="1310" x2="1680" y2="1310" stroke="#ccc" stroke-width="1"/>
+        <text x="1370" y="1340" font-family="Arial" font-size="14" fill="#666">Approved:</text>
+        <line x1="1460" y1="1340" x2="1680" y2="1340" stroke="#ccc" stroke-width="1"/>
+
+        <!-- Scale indicator -->
+        <text x="1680" y="1370" text-anchor="end" font-family="Arial" font-size="14" fill="#666">Scale: NTS</text>
+    </g>
+
+    <!-- Legend -->
+    <g id="legend" transform="translate(1520, 100)">
+        <text x="0" y="0" font-family="Arial" font-size="18" font-weight="bold" fill="#333">LEGEND</text>
+        <line x1="0" y1="8" x2="180" y2="8" stroke="#333" stroke-width="1"/>
+
+        <circle cx="15" cy="40" r="10" fill="none" stroke="#d32f2f" stroke-width="2"/>
+        <text x="35" y="45" font-family="Arial" font-size="16" fill="#333">Hole</text>
+
+        <line x1="5" y1="75" x2="25" y2="75" stroke="#666" stroke-width="2" stroke-dasharray="5,3"/>
+        <text x="35" y="80" font-family="Arial" font-size="16" fill="#333">Section Line</text>
+
+        <rect x="5" y="95" width="20" height="20" fill="url(#hatch)" stroke="#000" stroke-width="1"/>
+        <text x="35" y="110" font-family="Arial" font-size="16" fill="#333">Glass Section</text>
+    </g>
+
+</svg>

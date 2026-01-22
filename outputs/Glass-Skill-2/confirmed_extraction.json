@@ -1,0 +1,119 @@
+{
+  "dimensions": {
+    "width": 2920,
+    "height": 975,
+    "thickness": 4.0
+  },
+  "sections": [
+    {
+      "name": "Panel 1",
+      "type": "door",
+      "width": 878,
+      "height": 975,
+      "height_left": 975,
+      "height_right": 975,
+      "x_offset": 0,
+      "has_notch": true,
+      "notch_depth": 30,
+      "notch_height": 60,
+      "notch_position": "bottom_left",
+      "hole_count": 0,
+      "is_tapered": false,
+      "taper_angle": 0,
+      "notes": "Door panel (leftmost) - 878mm width calculated from total 2920 - 1021 - 1021"
+    },
+    {
+      "name": "Panel 2",
+      "type": "panel",
+      "width": 1021,
+      "height": 975,
+      "height_left": 975,
+      "height_right": 975,
+      "x_offset": 878,
+      "has_notch": false,
+      "hole_count": 2,
+      "hole_diameter": 8,
+      "hole_y": 30,
+      "hole_positions": "left and right edges at bottom",
+      "is_tapered": false,
+      "taper_angle": 0,
+      "notes": "Fixed panel - 1021mm width read directly from image"
+    },
+    {
+      "name": "Panel 3",
+      "type": "panel",
+      "width": 1021,
+      "height": 975,
+      "height_left": 975,
+      "height_right": 975,
+      "x_offset": 1899,
+      "has_notch": false,
+      "hole_count": 2,
+      "hole_diameter": 8,
+      "hole_y": 30,
+      "hole_positions": "left and right edges at bottom",
+      "is_tapered": false,
+      "taper_angle": 0,
+      "notes": "Fixed panel - 1021mm width read directly from image"
+    }
+  ],
+  "holes": [
+    {
+      "x": 908,
+      "y": 30,
+      "diameter": 8,
+      "purpose": "mounting",
+      "section": "Panel 2"
+    },
+    {
+      "x": 1869,
+      "y": 30,
+      "diameter": 8,
+      "purpose": "mounting",
+      "section": "Panel 2"
+    },
+    {
+      "x": 1929,
+      "y": 30,
+      "diameter": 8,
+      "purpose": "mounting",
+      "section": "Panel 3"
+    },
+    {
+      "x": 2890,
+      "y": 30,
+      "diameter": 8,
+      "purpose": "mounting",
+      "section": "Panel 3"
+    }
+  ],
+  "height_profile": [
+    {
+      "position": "left_edge",
+      "height": 975
+    },
+    {
+      "position": "boundary_1_2",
+      "height": 975
+    },
+    {
+      "position": "boundary_2_3",
+      "height": 975
+    },
+    {
+      "position": "right_edge",
+      "height": 975
+    }
+  ],
+  "edge_type": "K_edge",
+  "glass_type": "clear_tempered",
+  "notes": [
+    "3-panel assembly extracted from Glass-Skill-2 sketch",
+    "Image was rotated 90 degrees CCW",
+    "Total width: 878 + 1021 + 1021 = 2920mm (matches image)",
+    "Uniform height of 975mm across all panels",
+    "Panel 1 (Door) has small notch at bottom left",
+    "Panels 2 and 3 have mounting holes at bottom",
+    "0 markers in image indicate zero taper (rectangular panels)"
+  ]
+}

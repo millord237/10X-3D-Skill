@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="950" viewBox="0 0 750 950">
+    <defs>
+        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
+        </pattern>
+        <pattern id="plot-fill" patternUnits="userSpaceOnUse" width="8" height="8">
+            <path d="M-2,2 l4,-4 M0,8 l8,-8 M6,10 l4,-4" stroke="#c8e6c9" stroke-width="1"/>
+        </pattern>
+        <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#333"/>
+        </marker>
+        <marker id="arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+            <path d="M8,0 L0,4 L8,8 Z" fill="#333"/>
+        </marker>
+    </defs>
+
+    <rect width="750" height="950" fill="#fafafa"/>
+    <rect x="70" y="90" width="580" height="650" fill="url(#grid)"/>
+
+    <text x="375" y="35" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="#1565c0">PLOT BOUNDARY TECHNICAL DRAWING</text>
+    <text x="375" y="55" text-anchor="middle" font-family="Arial" font-size="11" fill="#666">All measurements verified | Polygon closure validated</text>
+    <text x="375" y="75" text-anchor="middle" font-family="Arial" font-size="10" fill="#d32f2f">11 Vertices | Scale: 1 FT = 10px | Area: 1,422.93 sq FT</text>
+
+    <polygon
+        points="120,110 434,110 434,335 434,395 290,395 290,668 170,668 170,626 91,626 91,360 120,360 120,110"
+        fill="url(#plot-fill)"
+        stroke="#2e7d32"
+        stroke-width="3"
+        stroke-linejoin="round"/>
+
+    <line x1="434" y1="335" x2="434" y2="395" stroke="#ff9800" stroke-width="5" stroke-dasharray="8,4"/>
+
+    <!-- EAST (Top): 31.4 FT -->
+    <line x1="120" y1="95" x2="434" y2="95" stroke="#333" stroke-width="1" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+    <rect x="240" y="82" width="75" height="20" fill="white" rx="2"/>
+    <text x="277" y="96" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#d32f2f">31.4 FT</text>
+    <text x="277" y="75" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#1976d2">East</text>
+
+    <!-- SOUTH UPPER: 22.5 FT -->
+    <line x1="450" y1="110" x2="450" y2="335" stroke="#333" stroke-width="1" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+    <rect x="455" y="208" width="55" height="18" fill="white" rx="2"/>
+    <text x="482" y="221" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#d32f2f">22.5 FT</text>
+
+    <!-- GATE: 6 FT -->
+    <line x1="460" y1="335" x2="460" y2="395" stroke="#ff9800" stroke-width="1" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+    <rect x="465" y="350" width="65" height="22" fill="#fff3e0" stroke="#ff9800" rx="2"/>
+    <text x="497" y="365" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#e65100">GATE 6 FT</text>
+
+    <line x1="450" y1="365" x2="520" y2="365" stroke="#795548" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="570" y="360" font-family="Arial" font-size="10" fill="#795548">GALI/</text>
+    <text x="570" y="372" font-family="Arial" font-size="10" fill="#795548">RASTA</text>
+
+    <!-- 14.4 FT Wall -->
+    <line x1="290" y1="410" x2="434" y2="410" stroke="#333" stroke-width="1" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+    <rect x="330" y="412" width="55" height="18" fill="#e3f2fd" stroke="#1976d2" rx="2"/>
+    <text x="357" y="426" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#1976d2">14.4 FT</text>
+
+    <!-- SOUTH LOWER: 27.3 FT -->
+    <line x1="306" y1="395" x2="306" y2="668" stroke="#333" stroke-width="1" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+    <rect x="310" y="515" width="55" height="18" fill="white" rx="2"/>
+    <text x="337" y="528" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#d32f2f">27.3 FT</text>
+    <text x="330" y="550" text-anchor="middle" font-family="Arial" font-size="10" font-weight="bold" fill="#1976d2" transform="rotate(90 330 550)">SOUTH</text>
+
+    <!-- WEST BOTTOM: 12 FT -->
+    <line x1="170" y1="683" x2="290" y2="683" stroke="#333" stroke-width="1" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+    <rect x="200" y="685" width="50" height="18" fill="white" rx="2"/>
+    <text x="230" y="698" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#d32f2f">12 FT</text>
+
+    <!-- STEP: 4.2 FT -->
+    <line x1="155" y1="626" x2="155" y2="668" stroke="#333" stroke-width="1" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+    <rect x="130" y="638" width="35" height="16" fill="#e3f2fd" stroke="#1976d2" rx="2"/>
+    <text x="147" y="650" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#1976d2">4.2</text>
+
+    <!-- WEST MID: 7.9 FT -->
+    <line x1="91" y1="612" x2="170" y2="612" stroke="#333" stroke-width="1" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+    <rect x="110" y="594" width="45" height="16" fill="white" rx="2"/>
+    <text x="132" y="606" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#d32f2f">7.9 FT</text>
+
+    <text x="200" y="720" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#1976d2">West</text>
+
+    <!-- NORTH LOWER: 26.6 FT -->
+    <line x1="76" y1="360" x2="76" y2="626" stroke="#333" stroke-width="1" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+    <rect x="50" y="478" width="52" height="18" fill="white" rx="2"/>
+    <text x="76" y="491" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#d32f2f">27.4 FT</text>
+
+    <!-- INDENT: 2.9 FT -->
+    <line x1="91" y1="375" x2="120" y2="375" stroke="#333" stroke-width="1" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+    <rect x="90" y="380" width="45" height="16" fill="white" rx="2"/>
+    <text x="112" y="392" text-anchor="middle" font-family="Arial" font-size="10" font-weight="bold" fill="#d32f2f">2.9 FT</text>
+
+    <!-- NORTH UPPER: 25 FT -->
+    <line x1="105" y1="110" x2="105" y2="360" stroke="#333" stroke-width="1" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+    <rect x="55" y="220" width="45" height="18" fill="white" rx="2"/>
+    <text x="77" y="233" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#d32f2f">25 FT</text>
+
+    <text x="60" y="400" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#1976d2" transform="rotate(-90 60 400)">NORTH</text>
+
+    <!-- Vertex markers -->
+    <circle cx="120" cy="110" r="5" fill="#1565c0"/><text x="125" y="100" font-family="Arial" font-size="8" fill="#1565c0">P1</text>
+    <circle cx="434" cy="110" r="5" fill="#1565c0"/><text x="440" y="100" font-family="Arial" font-size="8" fill="#1565c0">P2</text>
+    <circle cx="434" cy="335" r="5" fill="#1565c0"/><text x="440" y="328" font-family="Arial" font-size="8" fill="#1565c0">P3</text>
+    <circle cx="434" cy="395" r="5" fill="#ff9800"/><text x="440" y="405" font-family="Arial" font-size="8" fill="#ff9800">P4</text>
+    <circle cx="290" cy="395" r="5" fill="#ff9800"/><text x="270" y="388" font-family="Arial" font-size="8" fill="#ff9800">P5</text>
+    <circle cx="290" cy="668" r="5" fill="#1565c0"/><text x="295" y="680" font-family="Arial" font-size="8" fill="#1565c0">P6</text>
+    <circle cx="170" cy="668" r="5" fill="#1565c0"/><text x="160" y="680" font-family="Arial" font-size="8" fill="#1565c0">P7</text>
+    <circle cx="170" cy="626" r="5" fill="#1565c0"/><text x="175" y="620" font-family="Arial" font-size="8" fill="#1565c0">P8</text>
+    <circle cx="91" cy="626" r="5" fill="#4caf50"/><text x="70" y="635" font-family="Arial" font-size="8" fill="#4caf50">P9</text>
+    <circle cx="91" cy="360" r="5" fill="#4caf50"/><text x="70" y="368" font-family="Arial" font-size="8" fill="#4caf50">P10</text>
+    <circle cx="120" cy="360" r="5" fill="#4caf50"/><text x="125" y="355" font-family="Arial" font-size="8" fill="#4caf50">P11</text>
+
+    <!-- Measurements summary -->
+    <g transform="translate(520, 450)">
+        <rect x="0" y="0" width="200" height="280" fill="white" stroke="#1565c0" stroke-width="2" rx="5"/>
+        <text x="100" y="22" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#1565c0">ALL MEASUREMENTS</text>
+        <line x1="10" y1="32" x2="190" y2="32" stroke="#1565c0"/>
+
+        <text x="15" y="52" font-family="Arial" font-size="10" font-weight="bold" fill="#333">EAST (Top):</text>
+        <text x="185" y="52" text-anchor="end" font-family="Arial" font-size="10" fill="#d32f2f">31.4 FT</text>
+
+        <text x="15" y="72" font-family="Arial" font-size="10" font-weight="bold" fill="#333">SOUTH:</text>
+        <text x="25" y="87" font-family="Arial" font-size="9" fill="#666">Upper:</text>
+        <text x="185" y="87" text-anchor="end" font-family="Arial" font-size="9" fill="#333">22.5 FT</text>
+        <text x="25" y="102" font-family="Arial" font-size="9" fill="#ff9800">Gate:</text>
+        <text x="185" y="102" text-anchor="end" font-family="Arial" font-size="9" fill="#ff9800">6 FT</text>
+        <text x="25" y="117" font-family="Arial" font-size="9" fill="#1976d2">14.4 Wall:</text>
+        <text x="185" y="117" text-anchor="end" font-family="Arial" font-size="9" fill="#1976d2">14.4 FT</text>
+        <text x="25" y="132" font-family="Arial" font-size="9" fill="#666">Lower:</text>
+        <text x="185" y="132" text-anchor="end" font-family="Arial" font-size="9" fill="#333">27.3 FT</text>
+
+        <text x="15" y="152" font-family="Arial" font-size="10" font-weight="bold" fill="#333">WEST (Bottom):</text>
+        <text x="25" y="167" font-family="Arial" font-size="9" fill="#666">P6-P7:</text>
+        <text x="185" y="167" text-anchor="end" font-family="Arial" font-size="9" fill="#333">12 FT</text>
+        <text x="25" y="182" font-family="Arial" font-size="9" fill="#1976d2">Step:</text>
+        <text x="185" y="182" text-anchor="end" font-family="Arial" font-size="9" fill="#1976d2">4.2 FT</text>
+        <text x="25" y="197" font-family="Arial" font-size="9" fill="#666">P8-P9:</text>
+        <text x="185" y="197" text-anchor="end" font-family="Arial" font-size="9" fill="#333">7.9 FT</text>
+
+        <text x="15" y="217" font-family="Arial" font-size="10" font-weight="bold" fill="#333">NORTH:</text>
+        <text x="25" y="232" font-family="Arial" font-size="9" fill="#666">Lower:</text>
+        <text x="185" y="232" text-anchor="end" font-family="Arial" font-size="9" fill="#333">27.4 FT</text>
+        <text x="25" y="247" font-family="Arial" font-size="9" fill="#666">Indent:</text>
+        <text x="185" y="247" text-anchor="end" font-family="Arial" font-size="9" fill="#333">2.9 FT</text>
+        <text x="25" y="262" font-family="Arial" font-size="9" fill="#666">Upper:</text>
+        <text x="185" y="262" text-anchor="end" font-family="Arial" font-size="9" fill="#333">25 FT</text>
+    </g>
+
+    <!-- Title block -->
+    <rect x="20" y="760" width="710" height="180" fill="white" stroke="#333" stroke-width="2"/>
+    <text x="375" y="785" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#333">PLOT BOUNDARY - BOUNDARY SKILL 1</text>
+    <line x1="30" y1="795" x2="720" y2="795" stroke="#333"/>
+
+    <text x="40" y="820" font-family="Arial" font-size="11" font-weight="bold" fill="#333">MEASUREMENT SUMMARY:</text>
+    <text x="40" y="845" font-family="monospace" font-size="10" fill="#333">East:  31.4 FT                      | South: 22.5 + 6 + 27.3 = 55.8 FT</text>
+    <text x="40" y="865" font-family="monospace" font-size="10" fill="#333">North: 25 + 2.9 + 27.4 = 55.3 FT    | West:  12 + 4.2 + 7.9 = 24.1 FT</text>
+    <text x="40" y="885" font-family="monospace" font-size="10" fill="#333">Inner width: 14.4 FT (horizontal step after gate)</text>
+
+    <line x1="30" y1="900" x2="720" y2="900" stroke="#ccc"/>
+
+    <text x="40" y="920" font-family="Arial" font-size="10" fill="#666">Source: Glass-Skill-2.jpeg | 11 Vertices | Closure Error: 0.0 FT</text>
+    <text x="700" y="920" text-anchor="end" font-family="Arial" font-size="10" fill="#666">Perimeter: 181.0 FT</text>
+
+</svg>
